@@ -87,6 +87,17 @@ let activeCategory = 'Todas';
 let heroIndex = 0;
 let cart = [];
 
+function getCategoryFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    if (!category) {
+        return 'Todas';
+    }
+
+    const validCategory = products.find((product) => product.category === category)?.category;
+    return validCategory || 'Todas';
+}
+
 if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
 }
@@ -423,6 +434,7 @@ function hideModal() {
 }
 
 loadProducts();
+activeCategory = getCategoryFromUrl();
 renderProducts();
 renderCategories();
 renderCart();
