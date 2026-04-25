@@ -1,6 +1,20 @@
 const PRODUCTS_STORAGE_KEY = 'merigon_products';
 const VISIT_COUNTER_NAMESPACE = 'merigonsweets-javiboom';
 const VISIT_COUNTER_KEY = 'store-visits';
+const ADMIN_AUTH_KEY = 'merigon_superuser_session';
+
+const SUPER_USERS = [
+    {
+        id: 'javiboom',
+        username: 'javiboom',
+        passwordHash: 'cdf04559a616eab8681657ce6ab4fbdf67877bcf9401268f2abbca2bbdef6b9f'
+    },
+    {
+        id: 'javiboomsev',
+        username: 'javiboomsev@gmail.com',
+        passwordHash: 'cdf04559a616eab8681657ce6ab4fbdf67877bcf9401268f2abbca2bbdef6b9f'
+    }
+];
 
 const defaultProducts = [
     {
@@ -55,6 +69,12 @@ const defaultProducts = [
 
 const totalVisitsEl = document.getElementById('totalVisits');
 const lastUpdateEl = document.getElementById('lastUpdate');
+const authSection = document.getElementById('authSection');
+const protectedContent = document.getElementById('protectedContent');
+const authForm = document.getElementById('authForm');
+const authUsername = document.getElementById('authUsername');
+const authPassword = document.getElementById('authPassword');
+const authError = document.getElementById('authError');
 const productForm = document.getElementById('productForm');
 const productList = document.getElementById('productList');
 const resetCatalogBtn = document.getElementById('resetCatalogBtn');
@@ -66,9 +86,98 @@ const cancelEditBtn = document.getElementById('cancelEditBtn');
 const exportCatalogBtn = document.getElementById('exportCatalogBtn');
 const importCatalogBtn = document.getElementById('importCatalogBtn');
 const importCatalogInput = document.getElementById('importCatalogInput');
+const logoutBtn = document.getElementById('logoutBtn');
 
 let products = [];
 let editingProductId = null;
+
+function normalizeIdentity(value) {
+    return (value || '').trim().toLowerCase();
+}
+
+function getStoredSession() {
+    const raw = localStorage.getItem(ADMIN_AUTH_KEY);
+    if (!raw) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(raw);
+    } catch (error) {
+        return null;
+    }
+}
+
+function isAuthenticated() {
+    const session = getStoredSession();
+    if (!session?.username) {
+        return false;
+    }
+
+    const identity = normalizeIdentity(session.username);
+    return SUPER_USERS.some((user) => normalizeIdentity(user.username) === identity);
+}
+
+function saveSession(user) {
+    localStorage.setItem(ADMIN_AUTH_KEY, JSON.stringify({
+        id: user.id,
+        username: user.username,
+        at: Date.now()
+    }));
+}
+
+function clearSession() {
+    localStorage.removeItem(ADMIN_AUTH_KEY);
+}
+
+function applyAuthUI(authenticated) {
+    if (authSection) {
+        authSection.hidden = authenticated;
+    }
+
+    if (protectedContent) {
+        protectedContent.hidden = !authenticated;
+    }
+
+    if (logoutBtn) {
+        logoutBtn.hidden = !authenticated;
+    }
+}
+
+async function sha256Hex(value) {
+    const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+    return Array.from(new Uint8Array(buffer)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+async function authenticateSuperUser(username, password) {
+    const identity = normalizeIdentity(username);
+    const selectedUser = SUPER_USERS.find((user) => normalizeIdentity(user.username) === identity);
+
+    if (!selectedUser) {
+        return null;
+    }
+
+    const passwordHash = await sha256Hex(password);
+    return passwordHash === selectedUser.passwordHash ? selectedUser : null;
+}
+
+function showAuthError(message) {
+    if (!authError) {
+        return;
+    }
+
+    authError.hidden = false;
+    authError.textContent = message;
+}
+
+function clearAuthError() {
+    if (!authError) {
+        return;
+    }
+
+    authError.hidden = true;
+    authError.textContent = '';
+}
 
 function showToast(message, type = 'success') {
     if (!toastRoot) {
@@ -192,6 +301,11 @@ async function loadVisitStats() {
 }
 
 function exportCatalog() {
+    if (!isAuthenticated()) {
+        showToast('Acceso denegado. Inicia sesion.', 'error');
+        return;
+    }
+
     const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
     const fileUrl = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
@@ -203,6 +317,11 @@ function exportCatalog() {
 }
 
 function importCatalog(file) {
+    if (!isAuthenticated()) {
+        showToast('Acceso denegado. Inicia sesion.', 'error');
+        return;
+    }
+
     if (!file) {
         return;
     }
@@ -237,6 +356,11 @@ function importCatalog(file) {
 }
 
 resetCatalogBtn?.addEventListener('click', () => {
+    if (!isAuthenticated()) {
+        showToast('Acceso denegado. Inicia sesion.', 'error');
+        return;
+    }
+
     const confirmed = window.confirm('Se restablecera el catalogo por defecto. Continuar?');
     if (!confirmed) {
         return;
@@ -252,6 +376,11 @@ resetCatalogBtn?.addEventListener('click', () => {
 
 productForm?.addEventListener('submit', (event) => {
     event.preventDefault();
+
+    if (!isAuthenticated()) {
+        showToast('Acceso denegado. Inicia sesion.', 'error');
+        return;
+    }
 
     const name = document.getElementById('productName').value.trim();
     const desc = document.getElementById('productDesc').value.trim();
@@ -304,6 +433,11 @@ importCatalogInput?.addEventListener('change', (event) => {
 });
 
 productList?.addEventListener('click', (event) => {
+    if (!isAuthenticated()) {
+        showToast('Acceso denegado. Inicia sesion.', 'error');
+        return;
+    }
+
     const editBtn = event.target.closest('.edit-btn');
     if (editBtn) {
         const selectedProduct = products.find((product) => product.id === editBtn.dataset.id);
@@ -330,8 +464,46 @@ productList?.addEventListener('click', (event) => {
     showToast('Producto eliminado.');
 });
 
+authForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    clearAuthError();
+
+    const username = authUsername?.value || '';
+    const password = authPassword?.value || '';
+
+    if (!username.trim() || !password.trim()) {
+        showAuthError('Completa usuario y clave.');
+        return;
+    }
+
+    const user = await authenticateSuperUser(username, password);
+    if (!user) {
+        showAuthError('Credenciales incorrectas o sin permisos.');
+        return;
+    }
+
+    saveSession(user);
+    authForm.reset();
+    applyAuthUI(true);
+    loadVisitStats();
+    showToast(`Bienvenido, ${user.username}.`);
+});
+
+logoutBtn?.addEventListener('click', () => {
+    clearSession();
+    applyAuthUI(false);
+    clearAuthError();
+    setEditMode(null);
+    showToast('Sesion cerrada.');
+});
+
 loadProducts();
 renderProductList();
 setEditMode(null);
 updateLastUpdate();
-loadVisitStats();
+
+const hasActiveSession = isAuthenticated();
+applyAuthUI(hasActiveSession);
+if (hasActiveSession) {
+    loadVisitStats();
+}

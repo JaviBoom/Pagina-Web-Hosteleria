@@ -13,9 +13,30 @@
     <div class="admin-page">
         <header class="admin-header">
             <h1>Panel de Administrador</h1>
-            <a class="back-link" href="index.html">Volver a la tienda</a>
+            <div class="header-actions">
+                <a class="back-link" href="index.html">Volver a la tienda</a>
+                <button id="logoutBtn" class="btn secondary" type="button" hidden>Cerrar sesion</button>
+            </div>
         </header>
 
+        <section id="authSection" class="admin-box" aria-labelledby="auth-title">
+            <h2 id="auth-title">Acceso de superusuarios</h2>
+            <p class="hint">Solo las personas autorizadas pueden entrar al panel de gestion.</p>
+            <form id="authForm" class="admin-form auth-form">
+                <label>
+                    Usuario o email
+                    <input id="authUsername" class="input" type="text" autocomplete="username" required>
+                </label>
+                <label>
+                    Clave
+                    <input id="authPassword" class="input" type="password" autocomplete="current-password" required>
+                </label>
+                <button type="submit" class="btn">Entrar al panel</button>
+            </form>
+            <p id="authError" class="hint warning" hidden></p>
+        </section>
+
+        <div id="protectedContent" hidden>
         <section class="admin-box" aria-labelledby="overview-title">
             <div class="panel-head">
                 <div>
@@ -94,6 +115,7 @@
                 </div>
             </div>
         </section>
+        </div>
     </div>
 
     <div id="toastRootAdmin" class="toast-root" aria-live="polite" aria-atomic="true"></div>
