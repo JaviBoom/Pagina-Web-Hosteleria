@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MerigonSweets | Pedidos</title>
+    <link rel="canonical" href="https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html">
+    <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/principal.css">
+    <meta name="description" content="Pagina de pedidos de MerigonSweets: elige tus postres, prepara tu carrito y envia el pedido por WhatsApp.">
+</head>
+<body>
+    <div class="site" role="document">
+        <header>
+            <a class="brand" href="index.html">
+                <img class="logo" src="assets/img/logo.jpg" alt="Logo MerigonSweets">
+                <div>
+                    <h1>MerigonSweets</h1>
+                    <p>Area de pedidos</p>
+                </div>
+            </a>
+
+            <nav aria-label="Navegación principal">
+                <ul class="nav-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#galeria">Galeria</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="actions">
+                <a class="btn secondary" href="index.html">Volver al inicio</a>
+                <button class="btn" id="contactBtn">Contactar</button>
+                <a class="btn secondary" href="admin.html">Administrador</a>
+            </div>
+        </header>
+
+        <section class="hero" id="inicio" aria-labelledby="hero-title">
+            <div class="left">
+                <h2 id="hero-title">Haz tu pedido en 1 minuto</h2>
+                <p>Explora el catalogo, añade al carrito y envia tu pedido por WhatsApp con el resumen listo.</p>
+                <div class="cta">
+                    <a class="btn" href="#productos">Ver catalogo</a>
+                    <a class="btn secondary" href="index.html">Conocer la marca</a>
+                </div>
+            </div>
+            <div class="right">
+                <div class="hero-slider" aria-label="Galeria destacada">
+                    <div class="hero-slide is-active" data-slide>
+                        <img class="hero-image" src="assets/img/logo.jpg" alt="Postres artesanales MerigonSweets">
+                        <p class="slide-caption">Top ventas de la semana</p>
+                    </div>
+                    <div class="hero-slide" data-slide>
+                        <img class="hero-image" src="assets/img/logo.jpg" alt="Tartas personalizadas">
+                        <p class="slide-caption">Tartas personalizadas por encargo</p>
+                    </div>
+                    <div class="hero-slide" data-slide>
+                        <img class="hero-image" src="assets/img/logo.jpg" alt="Tarrinas frescas">
+                        <p class="slide-caption">Entrega rapida en 24/48h</p>
+                    </div>
+                    <div class="hero-dots" aria-hidden="true">
+                        <button class="hero-dot is-active" data-slide-dot="0" type="button"></button>
+                        <button class="hero-dot" data-slide-dot="1" type="button"></button>
+                        <button class="hero-dot" data-slide-dot="2" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-strip" aria-label="Razones para elegirnos">
+            <article>
+                <strong>Ingredientes naturales</strong>
+                <p class="muted">Recetas artesanales y materia prima de calidad.</p>
+            </article>
+            <article>
+                <strong>Entrega 24/48h</strong>
+                <p class="muted">Reparto rapido en tu zona y recogida en tienda.</p>
+            </article>
+            <article>
+                <strong>Pago seguro</strong>
+                <p class="muted">Gestion de pedidos por WhatsApp con confirmacion.</p>
+            </article>
+        </section>
+
+        <div class="grid">
+            <aside class="sidebar" aria-labelledby="categorias-title">
+                <h3 id="categorias-title">Categorías</h3>
+                <ul class="categories" role="list"></ul>
+
+                <div class="sidebar-info">
+                    <strong>Horario:</strong>
+                    <p class="muted sidebar-hours">Lun-Sáb 09:00 - 19:00</p>
+                    <p class="sidebar-phone"><strong>Tel:</strong> <a class="muted" href="tel:+34123456789">+34 123 456 789</a></p>
+                    <p class="muted">Zona reparto: Sevilla y alrededores</p>
+                </div>
+
+                <div class="mini-cart" aria-labelledby="cart-title">
+                    <h4 id="cart-title">Tu pedido</h4>
+                    <ul id="cartList" class="cart-list" role="list"></ul>
+                    <p class="cart-total">Total estimado: <strong id="cartTotal">€0.00</strong></p>
+                    <div class="cart-actions">
+                        <button id="clearCartBtn" type="button" class="btn secondary">Vaciar</button>
+                        <button id="sendOrderBtn" type="button" class="btn">Pedir por WhatsApp</button>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="content" id="productos" aria-labelledby="productos-title">
+                <div class="section-title">
+                    <div>
+                        <h3 id="productos-title">Catalogo de postres</h3>
+                        <div class="small muted">Entrega en 24-48h • Pago seguro</div>
+                    </div>
+                    <div class="catalog-controls" role="group" aria-label="Controles de catalogo">
+                        <input id="searchInput" class="catalog-input" type="search" placeholder="Buscar por nombre o descripcion" aria-label="Buscar productos">
+                        <select id="sortSelect" class="catalog-select" aria-label="Ordenar productos">
+                            <option value="featured">Destacados</option>
+                            <option value="name-asc">Nombre A-Z</option>
+                            <option value="name-desc">Nombre Z-A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <ul class="products" id="productsList" role="list"></ul>
+
+                <section class="gallery-section" id="galeria" aria-labelledby="galeria-title">
+                    <div class="section-title">
+                        <h3 id="galeria-title">Galeria de postres</h3>
+                        <div class="small muted">Muestra visual de productos destacados</div>
+                    </div>
+                    <div id="galleryGrid" class="gallery-grid"></div>
+                </section>
+
+                <section class="share-pack" aria-labelledby="share-title">
+                    <h3 id="share-title">Comparte esta pagina de pedidos</h3>
+                    <p class="muted">Texto listo para reenviar por WhatsApp o Instagram.</p>
+                    <textarea id="shareMessage" class="share-text" rows="4" readonly>Te comparto MerigonSweets. Postres artesanales brutales. Mira el catalogo y pide por WhatsApp: https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html</textarea>
+                    <div class="share-actions">
+                        <button id="copyShareBtn" type="button" class="btn">Copiar texto</button>
+                        <a id="shareWhatsappBtn" class="btn secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=Te%20comparto%20MerigonSweets.%20Postres%20artesanales%20brutales.%20Mira%20el%20catalogo%20y%20pide%20por%20WhatsApp%3A%20https%3A%2F%2Fjaviboom.github.io%2FPagina-Web-Hosteleria%2Fpedidos.html">Compartir por WhatsApp</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="site-footer" id="contacto" role="contentinfo">
+            <div>
+                <strong>MerigonSweets</strong>
+                <div class="muted footer-copy">© <span id="year"></span> MerigonSweets. Todos los derechos reservados.</div>
+                <div class="small muted" id="visitCount">Visitas totales: --</div>
+            </div>
+
+            <div class="socials">
+                <a href="https://wa.me/34655247973" target="_blank" rel="noopener noreferrer" title="Contacto WhatsApp">WhatsApp</a>
+                <a href="https://www.facebook.com/MerigonSweets" target="_blank" rel="noopener noreferrer" title="Facebook">Facebook</a>
+                <a class="muted" href="aviso-legal.html">Aviso legal</a>
+                <a class="muted" href="privacidad.html">Privacidad</a>
+                <a class="muted" href="cookies.html">Cookies</a>
+            </div>
+        </footer>
+    </div>
+
+    <div id="contactModal" role="dialog" aria-modal="true" aria-hidden="true" class="contact-modal">
+        <div class="contact-modal-panel">
+            <div class="modal-header">
+                <h3 class="modal-title">Contactar / Pedido</h3>
+                <button id="closeModal" aria-label="Cerrar" class="close-modal-btn">x</button>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <label>
+                    Nombre
+                    <input class="form-input" name="name" required type="text" placeholder="Tu nombre">
+                </label>
+                <label>
+                    Teléfono o email
+                    <input class="form-input" name="contact" required type="text" placeholder="ej. 600123456 / correo@ej.com">
+                </label>
+                <label>
+                    Mensaje / Pedido
+                    <textarea class="form-input" name="message" rows="4" required placeholder="Describe tu pedido"></textarea>
+                </label>
+                <div class="modal-actions">
+                    <button type="button" id="cancelBtn" class="btn secondary cancel-btn">Cancelar</button>
+                    <button type="submit" class="btn">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="assets/js/main.js" defer></script>
+</body>
+</html>

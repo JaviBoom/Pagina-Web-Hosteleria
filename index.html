@@ -3,259 +3,121 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MerigonSweets — Postres Artesanales</title>
+    <title>MerigonSweets | Inicio</title>
     <link rel="canonical" href="https://javiboom.github.io/Pagina-Web-Hosteleria/">
     <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/principal.css">
-    <meta name="description" content="MerigonSweets — Postres artesanales: tarrinas, tartas y más. Hecho con ingredientes naturales. Pedido fácil y contacto directo.">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <meta name="description" content="Conoce MerigonSweets: postres artesanales en Sevilla. Descubre nuestra historia y haz tu pedido en la pagina dedicada.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MerigonSweets | Postres Artesanales">
-    <meta property="og:description" content="Tarrinas y tartas artesanales con ingredientes naturales. Descubre el catalogo y haz tu pedido.">
+    <meta property="og:title" content="MerigonSweets | Postres Artesanales en Sevilla">
+    <meta property="og:description" content="Inicio oficial de MerigonSweets. Conocenos y entra al area de pedidos.">
     <meta property="og:url" content="https://javiboom.github.io/Pagina-Web-Hosteleria/">
     <meta property="og:image" content="https://javiboom.github.io/Pagina-Web-Hosteleria/assets/img/logo.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MerigonSweets | Postres Artesanales">
-    <meta name="twitter:description" content="Catalogo de postres artesanales con pedido facil y contacto directo.">
-    <meta name="twitter:image" content="https://javiboom.github.io/Pagina-Web-Hosteleria/assets/img/logo.jpg">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Bakery",
-            "name": "MerigonSweets",
-            "url": "https://javiboom.github.io/Pagina-Web-Hosteleria/",
-            "image": "https://javiboom.github.io/Pagina-Web-Hosteleria/assets/img/logo.jpg",
-            "description": "Postres artesanales: tarrinas y tartas hechas con ingredientes naturales.",
-            "telephone": "+34 123 456 789",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Sevilla",
-                "addressCountry": "ES"
-            },
-            "areaServed": "Sevilla y alrededores",
-            "openingHours": "Mo-Sa 09:00-19:00",
-            "sameAs": [
-                "https://www.facebook.com/MerigonSweets"
-            ]
-        }
-    </script>
 </head>
 <body>
-    <div class="site" role="document">
+    <div class="site">
         <header>
-            <a class="brand" href="#">
+            <a class="brand" href="index.html">
                 <img class="logo" src="assets/img/logo.jpg" alt="Logo MerigonSweets">
                 <div>
                     <h1>MerigonSweets</h1>
-                    <p>Postres artesanales • Hecho con cariño</p>
+                    <p>Postres artesanales hechos con cariño</p>
                 </div>
             </a>
-
-            <nav aria-label="Navegación principal">
+            <nav aria-label="Navegacion principal">
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#quienes-somos">Quienes somos</a></li>
                     <li><a href="#opiniones">Opiniones</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
-
             <div class="actions">
-                <a class="btn secondary" href="#productos">Ver catálogo</a>
-                <button class="btn" id="contactBtn">Pedir / Contactar</button>
+                <a class="btn" href="pedidos.html">Hacer pedido</a>
                 <a class="btn secondary" href="admin.html">Administrador</a>
             </div>
         </header>
 
-        <section class="hero" id="inicio" aria-labelledby="hero-title">
-            <div class="left">
-                <h2 id="hero-title">Delicias caseras para cada ocasión</h2>
-                <p>Descubre nuestras tarrinas y tartas hechas con ingredientes naturales. Pedido online y recogida en tienda.</p>
+        <section class="hero" id="inicio">
+            <div class="hero-copy">
+                <h2>Bienvenido a MerigonSweets</h2>
+                <p>Somos una pasteleria artesanal en Sevilla especializada en tarrinas y tartas para celebraciones, detalles y momentos especiales.</p>
                 <div class="cta">
-                    <a class="btn" href="#productos">Ver productos</a>
-                    <a class="btn secondary" href="#sobre-nosotros">Saber más</a>
+                    <a class="btn" href="pedidos.html">Ir a pedidos</a>
+                    <a class="btn secondary" href="#quienes-somos">Conocenos</a>
                 </div>
             </div>
-            <div class="right">
-                <div class="hero-slider" aria-label="Galeria destacada">
-                    <div class="hero-slide is-active" data-slide>
-                        <img class="hero-image" src="assets/img/logo.jpg" alt="Postres artesanales MerigonSweets">
-                        <p class="slide-caption">Top ventas de la semana</p>
-                    </div>
-                    <div class="hero-slide" data-slide>
-                        <img class="hero-image" src="assets/img/logo.jpg" alt="Tartas personalizadas">
-                        <p class="slide-caption">Tartas personalizadas por encargo</p>
-                    </div>
-                    <div class="hero-slide" data-slide>
-                        <img class="hero-image" src="assets/img/logo.jpg" alt="Tarrinas frescas">
-                        <p class="slide-caption">Entrega rapida en 24/48h</p>
-                    </div>
-                    <div class="hero-dots" aria-hidden="true">
-                        <button class="hero-dot is-active" data-slide-dot="0" type="button"></button>
-                        <button class="hero-dot" data-slide-dot="1" type="button"></button>
-                        <button class="hero-dot" data-slide-dot="2" type="button"></button>
-                    </div>
-                </div>
-            </div>
+            <img class="hero-image" src="assets/img/logo.jpg" alt="Postres MerigonSweets">
         </section>
 
-        <section class="trust-strip" aria-label="Razones para elegirnos">
+        <section class="trust-strip">
             <article>
-                <strong>Ingredientes naturales</strong>
-                <p class="muted">Recetas artesanales y materia prima de calidad.</p>
+                <strong>Artesanal de verdad</strong>
+                <p>Recetas propias, ingredientes naturales y sabor casero.</p>
             </article>
             <article>
-                <strong>Entrega 24/48h</strong>
-                <p class="muted">Reparto rapido en tu zona y recogida en tienda.</p>
+                <strong>Entrega agil</strong>
+                <p>Pedidos listos en 24/48h en Sevilla y alrededores.</p>
             </article>
             <article>
-                <strong>Pago seguro</strong>
-                <p class="muted">Gestion de pedidos por WhatsApp con confirmacion.</p>
+                <strong>Atencion cercana</strong>
+                <p>Te asesoramos por WhatsApp para acertar en cada pedido.</p>
             </article>
         </section>
 
-        <div class="grid">
-            <aside class="sidebar" aria-labelledby="categorias-title">
-                <h3 id="categorias-title">Categorías</h3>
-                <ul class="categories" role="list">
-                   
-                </ul>
+        <section class="about" id="quienes-somos">
+            <h3>Quienes somos</h3>
+            <p>MerigonSweets nace para llevar postres artesanales de calidad a cada casa, evento o celebracion. Cuidamos sabor, presentacion y puntualidad para que tu pedido llegue perfecto.</p>
+            <ul>
+                <li>Especialidad en tarrinas y tartas personalizadas.</li>
+                <li>Opciones para eventos, cumples y regalos dulces.</li>
+                <li>Atencion directa por WhatsApp para pedidos rapidos.</li>
+            </ul>
+            <a class="btn" href="pedidos.html">Ver catalogo y pedir</a>
+        </section>
 
-                <div class="sidebar-info">
-                    <strong>Horario:</strong>
-                    <p class="muted sidebar-hours">Lun-Sáb 09:00 — 19:00</p>
-                    <p class="sidebar-phone"><strong>Tel:</strong> <a class="muted" href="tel:+34123456789">+34 123 456 789</a></p>
-                    <p class="muted">Zona reparto: Sevilla y alrededores</p>
-                </div>
+        <section class="testimonials" id="opiniones">
+            <h3>Opiniones de clientes</h3>
+            <div class="testimonials-grid">
+                <article>
+                    <p>"Todo super rico y con presentacion impecable."</p>
+                    <strong>- Marta G.</strong>
+                </article>
+                <article>
+                    <p>"Facil de pedir y entrega puntual. Repetimos fijo."</p>
+                    <strong>- Luis R.</strong>
+                </article>
+                <article>
+                    <p>"La tarta personalizada nos encanto en el cumple."</p>
+                    <strong>- Andrea P.</strong>
+                </article>
+            </div>
+        </section>
 
-                <div class="mini-cart" aria-labelledby="cart-title">
-                    <h4 id="cart-title">Tu pedido</h4>
-                    <ul id="cartList" class="cart-list" role="list"></ul>
-                    <p class="cart-total">Total estimado: <strong id="cartTotal">€0.00</strong></p>
-                    <div class="cart-actions">
-                        <button id="clearCartBtn" type="button" class="btn secondary">Vaciar</button>
-                        <button id="sendOrderBtn" type="button" class="btn">Pedir por WhatsApp</button>
-                    </div>
-                </div>
-            </aside>
+        <section class="share-pack">
+            <h3>Compartelo en un clic</h3>
+            <p>Si quieres enseñar la tienda completa, envia este enlace directo a pedidos.</p>
+            <a class="btn" href="pedidos.html">Abrir pagina de pedidos</a>
+        </section>
 
-            <main class="content" id="productos" aria-labelledby="productos-title">
-                <div class="section-title">
-                    <div>
-                        <h3 id="productos-title">Productos</h3>
-                        <div class="small muted">Entrega en 24-48h • Pago seguro</div>
-                    </div>
-                    <div class="catalog-controls" role="group" aria-label="Controles de catalogo">
-                        <input id="searchInput" class="catalog-input" type="search" placeholder="Buscar por nombre o descripcion" aria-label="Buscar productos">
-                        <select id="sortSelect" class="catalog-select" aria-label="Ordenar productos">
-                            <option value="featured">Destacados</option>
-                            <option value="name-asc">Nombre A-Z</option>
-                            <option value="name-desc">Nombre Z-A</option>
-                        </select>
-                    </div>
-                </div>
-
-                <ul class="products" id="productsList" role="list"></ul>
-
-                <section class="gallery-section" id="galeria" aria-labelledby="galeria-title">
-                    <div class="section-title">
-                        <h3 id="galeria-title">Galeria de postres</h3>
-                        <div class="small muted">Sube fotos reales desde tu catalogo para potenciar esta seccion</div>
-                    </div>
-                    <div id="galleryGrid" class="gallery-grid"></div>
-                </section>
-
-                <section id="sobre-nosotros" class="about-section">
-                    <h3>Sobre nosotros</h3>
-                    <p class="muted">En MerigonSweets elaboramos postres artesanales con recetas tradicionales y la mejor materia prima. Nos enfocamos en calidad, sabor y presentación.</p>
-                </section>
-
-                <section class="testimonials" id="opiniones" aria-labelledby="opiniones-title">
-                    <h3 id="opiniones-title">Lo que dicen nuestros clientes</h3>
-                    <div class="testimonials-grid">
-                        <article class="testimonial-card">
-                            <p>"La tarta de chocolate fue un exito en casa. Repetimos seguro."</p>
-                            <strong>- Marta G.</strong>
-                        </article>
-                        <article class="testimonial-card">
-                            <p>"Pedimos por WhatsApp y todo super facil. Llegaron perfectas."</p>
-                            <strong>- Luis R.</strong>
-                        </article>
-                        <article class="testimonial-card">
-                            <p>"Sabor casero de verdad. El trato, de 10."</p>
-                            <strong>- Andrea P.</strong>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="share-pack" aria-labelledby="share-title">
-                    <h3 id="share-title">Comparte MerigonSweets en 1 clic</h3>
-                    <p class="muted">Texto listo para reenviar por WhatsApp o Instagram.</p>
-                    <textarea id="shareMessage" class="share-text" rows="4" readonly>Te comparto MerigonSweets 🍰 Postres artesanales brutales. Mira el catalogo y pide por WhatsApp: https://javiboom.github.io/Pagina-Web-Hosteleria/</textarea>
-                    <div class="share-actions">
-                        <button id="copyShareBtn" type="button" class="btn">Copiar texto</button>
-                        <a id="shareWhatsappBtn" class="btn secondary" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=Te%20comparto%20MerigonSweets%20%F0%9F%8D%B0%20Postres%20artesanales%20brutales.%20Mira%20el%20catalogo%20y%20pide%20por%20WhatsApp%3A%20https%3A%2F%2Fjaviboom.github.io%2FPagina-Web-Hosteleria%2F">Compartir por WhatsApp</a>
-                    </div>
-                </section>
-
-            </main>
-        </div>
-
-        <footer class="site-footer" id="contacto" role="contentinfo">
+        <footer id="contacto">
             <div>
                 <strong>MerigonSweets</strong>
-                <div class="muted footer-copy">© <span id="year"></span> MerigonSweets. Todos los derechos reservados.</div>
-                <div class="small muted" id="visitCount">Visitas totales: --</div>
+                <p>Telefono: <a href="tel:+34123456789">+34 123 456 789</a> · Sevilla y alrededores</p>
+                <p>Horario: Lun-Sab 09:00 - 19:00</p>
+                <p class="muted">© <span id="year"></span> MerigonSweets. Todos los derechos reservados.</p>
             </div>
-
-            <div class="socials">
-                <a href="https://wa.me/34655247973" target="_blank" rel="noopener noreferrer" title="Contacto WhatsApp">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.52 3.48A11.92 11.92 0 0 0 12.01.5 11.99 11.99 0 0 0 .5 12c0 2.11.55 4.09 1.59 5.86L.5 23.5l5.86-1.58A11.94 11.94 0 0 0 12 23.5c6.62 0 11.99-5.37 11.99-11.99 0-3.2-1.24-6.2-3.47-8.03z" fill="#25D366"/><path d="M17.6 14.5c-.4-.2-2.35-1.15-2.72-1.28-.37-.13-.64-.19-.91.19-.27.38-1.05 1.28-1.29 1.54-.24.26-.48.29-.88.1-.4-.19-1.67-.62-3.18-1.96-1.18-1.03-1.98-2.3-2.21-2.69-.22-.39-.02-.6.16-.79.17-.17.37-.44.55-.66.18-.22.24-.39.37-.64.13-.26.07-.49-.03-.69-.11-.2-.91-2.2-1.25-3.01-.33-.8-.67-.69-.92-.71-.24-.02-.52-.03-.8-.03-.27 0-.71.1-1.08.48-.36.38-1.35 1.32-1.35 3.22 0 1.9 1.38 3.74 1.57 4 .19.26 2.7 4.36 6.58 5.77 3.88 1.41 3.88.94 4.59.88.7-.06 2.27-.92 2.59-1.81.33-.9.33-1.67.23-1.82-.09-.15-.34-.24-.73-.44z" fill="#fff"/></svg>
-                </a>
-
-                <a href="https://www.facebook.com/MerigonSweets" target="_blank" rel="noopener noreferrer" title="Facebook">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.34 2 1.86 6.48 1.86 12.07c0 4.96 3.61 9.08 8.32 9.86v-6.98H8.03v-2.88h2.15V9.42c0-2.12 1.27-3.29 3.2-3.29.93 0 1.9.17 1.9.17v2.09h-1.06c-1.04 0-1.36.64-1.36 1.3v1.56h2.32l-.37 2.88h-1.95v6.98c4.71-.78 8.32-4.9 8.32-9.86z" fill="#1877F2"/></svg>
-                </a>
-
-                <a class="muted" href="#contacto">Contacto</a>
-                <a class="muted" href="aviso-legal.html">Aviso legal</a>
-                <a class="muted" href="privacidad.html">Privacidad</a>
-                <a class="muted" href="cookies.html">Cookies</a>
+            <div class="footer-links">
+                <a href="pedidos.html">Pedidos</a>
+                <a href="aviso-legal.html">Aviso legal</a>
+                <a href="privacidad.html">Privacidad</a>
+                <a href="cookies.html">Cookies</a>
             </div>
         </footer>
     </div>
 
-    <!-- Contact modal (simple) -->
-    <div id="contactModal" role="dialog" aria-modal="true" aria-hidden="true" class="contact-modal">
-        <div class="contact-modal-panel">
-            <div class="modal-header">
-                <h3 class="modal-title">Contactar / Pedido</h3>
-                <button id="closeModal" aria-label="Cerrar" class="close-modal-btn">✕</button>
-            </div>
-            <form id="contactForm" class="contact-form">
-                <label>
-                    Nombre
-                    <input class="form-input" name="name" required type="text" placeholder="Tu nombre">
-                </label>
-                <label>
-                    Teléfono o email
-                    <input class="form-input" name="contact" required type="text" placeholder="ej. 600123456 / correo@ej.com">
-                </label>
-                <label>
-                    Mensaje / Pedido
-                    <textarea class="form-input" name="message" rows="4" required placeholder="Describe tu pedido"></textarea>
-                </label>
-                <div class="modal-actions">
-                    <button type="button" id="cancelBtn" class="btn secondary cancel-btn">Cancelar</button>
-                    <button type="submit" class="btn">Enviar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
-
-        <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/home.js" defer></script>
 </body>
 </html>
 

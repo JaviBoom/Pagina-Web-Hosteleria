@@ -11,6 +11,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://javiboom.github.io/Pagina-Web-Hosteleria/aviso-legal.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
