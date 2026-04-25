@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MerigonSweets — Postres Artesanales</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/principal.css">
     <meta name="description" content="MerigonSweets — Postres artesanales: tarrinas, tartas y más. Hecho con ingredientes naturales. Pedido fácil y contacto directo.">
 </head>
@@ -66,8 +66,18 @@
 
             <main class="content" id="productos" aria-labelledby="productos-title">
                 <div class="section-title">
-                    <h3 id="productos-title">Productos</h3>
-                    <div class="small muted">Entrega en 24-48h • Pago seguro</div>
+                    <div>
+                        <h3 id="productos-title">Productos</h3>
+                        <div class="small muted">Entrega en 24-48h • Pago seguro</div>
+                    </div>
+                    <div class="catalog-controls" role="group" aria-label="Controles de catalogo">
+                        <input id="searchInput" class="catalog-input" type="search" placeholder="Buscar por nombre o descripcion" aria-label="Buscar productos">
+                        <select id="sortSelect" class="catalog-select" aria-label="Ordenar productos">
+                            <option value="featured">Destacados</option>
+                            <option value="name-asc">Nombre A-Z</option>
+                            <option value="name-desc">Nombre Z-A</option>
+                        </select>
+                    </div>
                 </div>
 
                 <ul class="products" id="productsList" role="list"></ul>
@@ -127,6 +137,8 @@
             </form>
         </div>
     </div>
+
+    <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
         <script src="assets/js/main.js" defer></script>
 </body>

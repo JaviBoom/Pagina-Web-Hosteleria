@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MerigonSweets - Administracion</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -27,6 +27,9 @@
                 <div>
                     <h2 id="manage-title">Gestion de productos</h2>
                     <p id="sessionBadge" class="session-badge"></p>
+                </div>
+                <div class="panel-meta">
+                    <span id="productCounter" class="counter-pill">0 productos</span>
                 </div>
                 <button id="logoutBtn" type="button" class="btn secondary">Cerrar sesion</button>
             </div>
@@ -69,6 +72,8 @@
             </div>
         </section>
     </div>
+
+    <div id="toastRootAdmin" class="toast-root" aria-live="polite" aria-atomic="true"></div>
 
         <script src="assets/js/admin.js" defer></script>
 </body>

@@ -69,11 +69,28 @@ const productForm = document.getElementById('productForm');
 const productList = document.getElementById('productList');
 const logoutBtn = document.getElementById('logoutBtn');
 const resetCatalogBtn = document.getElementById('resetCatalogBtn');
+const productCounter = document.getElementById('productCounter');
+const toastRoot = document.getElementById('toastRootAdmin');
 
 let products = [];
 let isAdminSession = localStorage.getItem(ADMIN_SESSION_KEY) === 'true';
 let adminRole = localStorage.getItem(ADMIN_ROLE_KEY) || '';
 let currentEmail = localStorage.getItem(ADMIN_EMAIL_KEY) || '';
+
+function showToast(message, type = 'success') {
+    if (!toastRoot) {
+        return;
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    toastRoot.appendChild(toast);
+
+    window.setTimeout(() => {
+        toast.remove();
+    }, 2600);
+}
 
 function decodeJwtPayload(jwtToken) {
     const parts = jwtToken.split('.');
@@ -216,6 +233,15 @@ function loadProducts() {
     }
 }
 
+function updateCounter() {
+    if (!productCounter) {
+        return;
+    }
+
+    const suffix = products.length === 1 ? 'producto' : 'productos';
+    productCounter.textContent = `${products.length} ${suffix}`;
+}
+
 function updateAdminUI() {
     adminPanel.hidden = !isAdminSession;
     loginSection.hidden = isAdminSession;
@@ -235,6 +261,7 @@ function updateAdminUI() {
 function renderProductList() {
     if (!products.length) {
         productList.innerHTML = '<li class="empty">No hay productos para eliminar.</li>';
+        updateCounter();
         return;
     }
 
@@ -247,6 +274,8 @@ function renderProductList() {
             <button class="btn secondary remove-btn" type="button" data-id="${product.id}">Eliminar</button>
         </li>
     `).join('');
+
+    updateCounter();
 }
 
 loadProducts();
@@ -260,7 +289,7 @@ if (!isAdminSession) {
     initGoogleLogin();
 }
 
-logoutBtn.addEventListener('click', () => {
+logoutBtn?.addEventListener('click', () => {
     clearSession();
     updateAdminUI();
     clearWarning();
@@ -270,9 +299,10 @@ logoutBtn.addEventListener('click', () => {
     }
 
     initGoogleLogin();
+    showToast('Sesion cerrada.');
 });
 
-resetCatalogBtn.addEventListener('click', () => {
+resetCatalogBtn?.addEventListener('click', () => {
     if (!isAdminSession || adminRole !== 'superadmin') {
         return;
     }
@@ -285,9 +315,10 @@ resetCatalogBtn.addEventListener('click', () => {
     products = [...defaultProducts];
     saveProducts();
     renderProductList();
+    showToast('Catalogo restablecido.');
 });
 
-productForm.addEventListener('submit', (event) => {
+productForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     if (!isAdminSession) {
         return;
@@ -300,7 +331,7 @@ productForm.addEventListener('submit', (event) => {
     const image = document.getElementById('productImage').value.trim();
 
     if (!name || !desc || !price || !category || !image) {
-        alert('Completa todos los campos.');
+        showToast('Completa todos los campos.', 'error');
         return;
     }
 
@@ -317,9 +348,10 @@ productForm.addEventListener('submit', (event) => {
     renderProductList();
     productForm.reset();
     document.getElementById('productName').focus();
+    showToast('Producto guardado correctamente.');
 });
 
-productList.addEventListener('click', (event) => {
+productList?.addEventListener('click', (event) => {
     const removeBtn = event.target.closest('.remove-btn');
     if (!removeBtn || !isAdminSession) {
         return;
@@ -329,4 +361,5 @@ productList.addEventListener('click', (event) => {
     products = products.filter((product) => product.id !== productId);
     saveProducts();
     renderProductList();
+    showToast('Producto eliminado.');
 });

@@ -54,6 +54,9 @@ const defaultProducts = [
 const yearEl = document.getElementById('year');
 const productsList = document.getElementById('productsList');
 const categoriesList = document.querySelector('.categories');
+const searchInput = document.getElementById('searchInput');
+const sortSelect = document.getElementById('sortSelect');
+const toastRoot = document.getElementById('toastRoot');
 
 const modal = document.getElementById('contactModal');
 const contactBtn = document.getElementById('contactBtn');
@@ -62,6 +65,7 @@ const cancelBtn = document.getElementById('cancelBtn');
 const contactForm = document.getElementById('contactForm');
 
 let products = [];
+let activeCategory = 'Todas';
 
 if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -69,6 +73,28 @@ if (yearEl) {
 
 function getSafeImageSrc(src) {
     return src && src.trim() ? src.trim() : 'assets/img/logo.jpg';
+}
+
+function normalizeText(value) {
+    return (value || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+}
+
+function showToast(message, type = 'success') {
+    if (!toastRoot) {
+        return;
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    toastRoot.appendChild(toast);
+
+    window.setTimeout(() => {
+        toast.remove();
+    }, 2600);
 }
 
 function saveProducts() {
@@ -92,10 +118,64 @@ function loadProducts() {
     }
 }
 
+function getFilteredProducts() {
+    const searchTerm = normalizeText(searchInput?.value || '');
+
+    let result = products.filter((product) => {
+        const category = product.category || 'General';
+        const categoryMatch = activeCategory === 'Todas' || category === activeCategory;
+
+        const content = normalizeText(`${product.name} ${product.desc} ${category}`);
+        const searchMatch = !searchTerm || content.includes(searchTerm);
+
+        return categoryMatch && searchMatch;
+    });
+
+    const sortValue = sortSelect?.value || 'featured';
+    if (sortValue === 'name-asc') {
+        result = [...result].sort((a, b) => a.name.localeCompare(b.name, 'es'));
+    }
+
+    if (sortValue === 'name-desc') {
+        result = [...result].sort((a, b) => b.name.localeCompare(a.name, 'es'));
+    }
+
+    return result;
+}
+
+function animateCards() {
+    const cards = productsList?.querySelectorAll('.card') || [];
+    cards.forEach((card, index) => {
+        card.style.setProperty('--delay', `${Math.min(index * 50, 350)}ms`);
+        window.requestAnimationFrame(() => {
+            card.classList.add('is-visible');
+        });
+    });
+}
+
+function renderEmptyState() {
+    if (!productsList) {
+        return;
+    }
+
+    productsList.innerHTML = `
+        <li class="hidden-state" role="status">
+            No encontramos productos con esos filtros. Prueba con otra busqueda.
+        </li>
+    `;
+}
+
 function renderProducts() {
     if (!productsList) return;
 
-    productsList.innerHTML = products.map((product) => `
+    const visibleProducts = getFilteredProducts();
+
+    if (!visibleProducts.length) {
+        renderEmptyState();
+        return;
+    }
+
+    productsList.innerHTML = visibleProducts.map((product) => `
         <li class="card" aria-label="${product.name}">
             <img src="${getSafeImageSrc(product.image)}" alt="${product.name}">
             <div class="card-info">
@@ -104,21 +184,23 @@ function renderProducts() {
                 <div class="price price-margin">${product.price}</div>
             </div>
             <div class="card-actions">
-                <a class="btn" href="#">Añadir</a>
+                <button class="btn add-btn" type="button" data-name="${product.name}">Añadir</button>
                 <a class="small muted" href="#">Detalles</a>
             </div>
         </li>
     `).join('');
+
+    animateCards();
 }
 
 function renderCategories() {
     if (!categoriesList) return;
 
-    const categories = [...new Set(products.map((product) => product.category || 'General'))];
+    const categories = ['Todas', ...new Set(products.map((product) => product.category || 'General'))];
 
     categoriesList.innerHTML = categories.map((category) => `
         <li>
-            <a href="#productos" aria-label="Ver productos de ${category}">
+            <a href="#productos" data-category="${category}" aria-label="Ver productos de ${category}" class="${category === activeCategory ? 'active' : ''}">
                 <span class="cat-title">${category}</span>
             </a>
         </li>
@@ -127,15 +209,17 @@ function renderCategories() {
 
 function openModal() {
     if (!modal) return;
-    modal.style.display = 'flex';
+    modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.querySelector('#contactModal input')?.focus();
+    document.body.style.overflow = 'hidden';
 }
 
 function hideModal() {
     if (!modal) return;
-    modal.style.display = 'none';
+    modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
 }
 
 loadProducts();
@@ -149,13 +233,42 @@ modal?.addEventListener('click', (e) => {
     if (e.target === modal) hideModal();
 });
 
+categoriesList?.addEventListener('click', (event) => {
+    const categoryLink = event.target.closest('[data-category]');
+    if (!categoryLink) {
+        return;
+    }
+
+    event.preventDefault();
+    activeCategory = categoryLink.dataset.category;
+    renderCategories();
+    renderProducts();
+});
+
+searchInput?.addEventListener('input', () => {
+    renderProducts();
+});
+
+sortSelect?.addEventListener('change', () => {
+    renderProducts();
+});
+
+productsList?.addEventListener('click', (event) => {
+    const addBtn = event.target.closest('.add-btn');
+    if (!addBtn) {
+        return;
+    }
+
+    showToast(`${addBtn.dataset.name} añadido al pedido`);
+});
+
 contactForm?.addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Gracias. Tu mensaje ha sido recibido. Nos pondremos en contacto pronto.');
+    showToast('Mensaje enviado. Te respondemos pronto.');
     contactForm.reset();
     hideModal();
 });
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modal?.style.display === 'flex') hideModal();
+    if (e.key === 'Escape' && modal?.classList.contains('open')) hideModal();
 });
