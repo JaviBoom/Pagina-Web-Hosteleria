@@ -1,11 +1,6 @@
 const PRODUCTS_STORAGE_KEY = 'merigon_products';
-const ADMIN_SESSION_KEY = 'merigon_admin_session';
-const ADMIN_ROLE_KEY = 'merigon_admin_role';
-const ADMIN_EMAIL_KEY = 'merigon_admin_email';
-
-// Reemplaza estos valores con tus datos reales de Google Cloud.
-const GOOGLE_CLIENT_ID = 'PON_AQUI_TU_CLIENT_ID_GOOGLE.apps.googleusercontent.com';
-const ALLOWED_DEVELOPER_EMAIL = 'javiboomsev@gmail.com';
+const VISIT_COUNTER_NAMESPACE = 'merigonsweets-javiboom';
+const VISIT_COUNTER_KEY = 'store-visits';
 
 const defaultProducts = [
     {
@@ -58,24 +53,22 @@ const defaultProducts = [
     }
 ];
 
-const loginSection = document.getElementById('loginSection');
-const googleSignInButton = document.getElementById('googleSignInButton');
-const loginWarning = document.getElementById('loginWarning');
-const adminPanel = document.getElementById('adminPanel');
-const sessionBadge = document.getElementById('sessionBadge');
-const developerTools = document.getElementById('developerTools');
-const developerEmail = document.getElementById('developerEmail');
+const totalVisitsEl = document.getElementById('totalVisits');
+const lastUpdateEl = document.getElementById('lastUpdate');
 const productForm = document.getElementById('productForm');
 const productList = document.getElementById('productList');
-const logoutBtn = document.getElementById('logoutBtn');
 const resetCatalogBtn = document.getElementById('resetCatalogBtn');
 const productCounter = document.getElementById('productCounter');
 const toastRoot = document.getElementById('toastRootAdmin');
+const formTitle = document.getElementById('formTitle');
+const saveProductBtn = document.getElementById('saveProductBtn');
+const cancelEditBtn = document.getElementById('cancelEditBtn');
+const exportCatalogBtn = document.getElementById('exportCatalogBtn');
+const importCatalogBtn = document.getElementById('importCatalogBtn');
+const importCatalogInput = document.getElementById('importCatalogInput');
 
 let products = [];
-let isAdminSession = localStorage.getItem(ADMIN_SESSION_KEY) === 'true';
-let adminRole = localStorage.getItem(ADMIN_ROLE_KEY) || '';
-let currentEmail = localStorage.getItem(ADMIN_EMAIL_KEY) || '';
+let editingProductId = null;
 
 function showToast(message, type = 'success') {
     if (!toastRoot) {
@@ -90,126 +83,6 @@ function showToast(message, type = 'success') {
     window.setTimeout(() => {
         toast.remove();
     }, 2600);
-}
-
-function decodeJwtPayload(jwtToken) {
-    const parts = jwtToken.split('.');
-    if (parts.length !== 3) {
-        return null;
-    }
-
-    const base64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
-    const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
-
-    try {
-        return JSON.parse(atob(padded));
-    } catch (error) {
-        return null;
-    }
-}
-
-function showWarning(message) {
-    if (!loginWarning) {
-        return;
-    }
-
-    loginWarning.hidden = false;
-    loginWarning.textContent = message;
-}
-
-function clearWarning() {
-    if (!loginWarning) {
-        return;
-    }
-
-    loginWarning.hidden = true;
-    loginWarning.textContent = '';
-}
-
-function saveSession(email, role) {
-    isAdminSession = true;
-    adminRole = role;
-    currentEmail = email;
-    localStorage.setItem(ADMIN_SESSION_KEY, 'true');
-    localStorage.setItem(ADMIN_ROLE_KEY, role);
-    localStorage.setItem(ADMIN_EMAIL_KEY, email);
-}
-
-function clearSession() {
-    isAdminSession = false;
-    adminRole = '';
-    currentEmail = '';
-    localStorage.removeItem(ADMIN_SESSION_KEY);
-    localStorage.removeItem(ADMIN_ROLE_KEY);
-    localStorage.removeItem(ADMIN_EMAIL_KEY);
-}
-
-function hasValidStoredSession() {
-    const allowedEmail = ALLOWED_DEVELOPER_EMAIL.toLowerCase();
-    return isAdminSession && adminRole === 'superadmin' && currentEmail.toLowerCase() === allowedEmail;
-}
-
-function onGoogleLogin(response) {
-    const payload = decodeJwtPayload(response.credential || '');
-    if (!payload) {
-        showWarning('No se pudo validar la sesion de Google. Intentalo otra vez.');
-        return;
-    }
-
-    const email = (payload.email || '').toLowerCase();
-    const emailVerified = payload.email_verified === true;
-    const allowedEmail = ALLOWED_DEVELOPER_EMAIL.toLowerCase();
-
-    if (!emailVerified) {
-        showWarning('Tu correo de Google no esta verificado.');
-        return;
-    }
-
-    if (email !== allowedEmail) {
-        showWarning('Esta cuenta no tiene permiso de desarrollador.');
-        clearSession();
-        updateAdminUI();
-        return;
-    }
-
-    clearWarning();
-    saveSession(email, 'superadmin');
-    updateAdminUI();
-    renderProductList();
-    document.getElementById('productName')?.focus();
-}
-
-function initGoogleLogin() {
-    if (hasValidStoredSession()) {
-        return;
-    }
-
-    if (!window.google || !window.google.accounts || !window.google.accounts.id) {
-        showWarning('No se pudo cargar Google Sign-In. Revisa conexion o bloqueo del navegador.');
-        return;
-    }
-
-    if (GOOGLE_CLIENT_ID.startsWith('PON_AQUI_')) {
-        showWarning('Configura tu GOOGLE_CLIENT_ID en admin.html para activar el acceso real.');
-        return;
-    }
-
-    window.google.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
-        callback: onGoogleLogin,
-        auto_select: true,
-        ux_mode: 'popup'
-    });
-
-    window.google.accounts.id.renderButton(googleSignInButton, {
-        type: 'standard',
-        theme: 'outline',
-        size: 'large',
-        text: 'signin_with',
-        shape: 'pill'
-    });
-
-    window.google.accounts.id.prompt();
 }
 
 function saveProducts() {
@@ -242,25 +115,40 @@ function updateCounter() {
     productCounter.textContent = `${products.length} ${suffix}`;
 }
 
-function updateAdminUI() {
-    adminPanel.hidden = !isAdminSession;
-    loginSection.hidden = isAdminSession;
-    if (sessionBadge) {
-        sessionBadge.textContent = isAdminSession
-            ? `Sesion iniciada como ${adminRole || 'admin'}`
-            : '';
+function updateLastUpdate() {
+    if (!lastUpdateEl) {
+        return;
     }
 
-    const isSuperAdmin = isAdminSession && adminRole === 'superadmin';
-    developerTools.hidden = !isSuperAdmin;
-    if (isSuperAdmin && developerEmail) {
-        developerEmail.textContent = currentEmail;
+    lastUpdateEl.textContent = new Date().toLocaleString('es-ES');
+}
+
+function setEditMode(product) {
+    if (!product) {
+        editingProductId = null;
+        formTitle.textContent = 'Anadir producto';
+        saveProductBtn.textContent = 'Guardar producto';
+        cancelEditBtn.hidden = true;
+        productForm.reset();
+        document.getElementById('productName')?.focus();
+        return;
     }
+
+    editingProductId = product.id;
+    formTitle.textContent = `Editando: ${product.name}`;
+    saveProductBtn.textContent = 'Actualizar producto';
+    cancelEditBtn.hidden = false;
+
+    document.getElementById('productName').value = product.name;
+    document.getElementById('productDesc').value = product.desc;
+    document.getElementById('productPrice').value = product.price;
+    document.getElementById('productCategory').value = product.category;
+    document.getElementById('productImage').value = product.image;
 }
 
 function renderProductList() {
     if (!products.length) {
-        productList.innerHTML = '<li class="empty">No hay productos para eliminar.</li>';
+        productList.innerHTML = '<li class="empty">No hay productos en el catalogo.</li>';
         updateCounter();
         return;
     }
@@ -269,44 +157,86 @@ function renderProductList() {
         <li class="product-item">
             <div>
                 <strong>${product.name}</strong>
-                <p>${product.price}</p>
+                <p>${product.price} • ${product.category}</p>
             </div>
-            <button class="btn secondary remove-btn" type="button" data-id="${product.id}">Eliminar</button>
+            <div class="row-actions">
+                <button class="btn secondary edit-btn" type="button" data-id="${product.id}">Editar</button>
+                <button class="btn secondary remove-btn" type="button" data-id="${product.id}">Eliminar</button>
+            </div>
         </li>
     `).join('');
 
     updateCounter();
 }
 
-loadProducts();
-if (!hasValidStoredSession()) {
-    clearSession();
-}
-updateAdminUI();
-renderProductList();
-
-if (!isAdminSession) {
-    initGoogleLogin();
-}
-
-logoutBtn?.addEventListener('click', () => {
-    clearSession();
-    updateAdminUI();
-    clearWarning();
-
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-        window.google.accounts.id.disableAutoSelect();
-    }
-
-    initGoogleLogin();
-    showToast('Sesion cerrada.');
-});
-
-resetCatalogBtn?.addEventListener('click', () => {
-    if (!isAdminSession || adminRole !== 'superadmin') {
+async function loadVisitStats() {
+    if (!totalVisitsEl) {
         return;
     }
 
+    totalVisitsEl.textContent = 'Cargando...';
+    const endpoint = `https://api.countapi.xyz/get/${VISIT_COUNTER_NAMESPACE}/${VISIT_COUNTER_KEY}`;
+
+    try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        if (typeof data.value === 'number') {
+            totalVisitsEl.textContent = data.value.toLocaleString('es-ES');
+            return;
+        }
+    } catch (error) {
+        // Ignorar y mostrar fallback.
+    }
+
+    totalVisitsEl.textContent = 'No disponible';
+}
+
+function exportCatalog() {
+    const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
+    const fileUrl = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = fileUrl;
+    anchor.download = 'catalogo-merigonsweets.json';
+    anchor.click();
+    URL.revokeObjectURL(fileUrl);
+    showToast('Catalogo exportado.');
+}
+
+function importCatalog(file) {
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        try {
+            const parsed = JSON.parse(reader.result);
+            if (!Array.isArray(parsed)) {
+                throw new Error('Formato invalido');
+            }
+
+            products = parsed.map((product) => ({
+                id: product.id || crypto.randomUUID(),
+                name: product.name || 'Producto sin nombre',
+                desc: product.desc || '',
+                price: product.price || 'Consultar',
+                category: product.category || 'General',
+                image: product.image || 'assets/img/logo.jpg'
+            }));
+
+            saveProducts();
+            renderProductList();
+            setEditMode(null);
+            updateLastUpdate();
+            showToast('Catalogo importado correctamente.');
+        } catch (error) {
+            showToast('El archivo JSON no es valido.', 'error');
+        }
+    };
+    reader.readAsText(file);
+}
+
+resetCatalogBtn?.addEventListener('click', () => {
     const confirmed = window.confirm('Se restablecera el catalogo por defecto. Continuar?');
     if (!confirmed) {
         return;
@@ -315,14 +245,13 @@ resetCatalogBtn?.addEventListener('click', () => {
     products = [...defaultProducts];
     saveProducts();
     renderProductList();
+    setEditMode(null);
+    updateLastUpdate();
     showToast('Catalogo restablecido.');
 });
 
 productForm?.addEventListener('submit', (event) => {
     event.preventDefault();
-    if (!isAdminSession) {
-        return;
-    }
 
     const name = document.getElementById('productName').value.trim();
     const desc = document.getElementById('productDesc').value.trim();
@@ -335,25 +264,58 @@ productForm?.addEventListener('submit', (event) => {
         return;
     }
 
-    products.unshift({
-        id: crypto.randomUUID(),
-        name,
-        desc,
-        price,
-        category,
-        image
-    });
+    if (editingProductId) {
+        products = products.map((product) => product.id === editingProductId
+            ? { ...product, name, desc, price, category, image }
+            : product);
+    } else {
+        products.unshift({
+            id: crypto.randomUUID(),
+            name,
+            desc,
+            price,
+            category,
+            image
+        });
+    }
 
     saveProducts();
     renderProductList();
-    productForm.reset();
-    document.getElementById('productName').focus();
-    showToast('Producto guardado correctamente.');
+    updateLastUpdate();
+    const message = editingProductId ? 'Producto actualizado correctamente.' : 'Producto guardado correctamente.';
+    setEditMode(null);
+    showToast(message);
+});
+
+cancelEditBtn?.addEventListener('click', () => {
+    setEditMode(null);
+});
+
+exportCatalogBtn?.addEventListener('click', exportCatalog);
+
+importCatalogBtn?.addEventListener('click', () => {
+    importCatalogInput?.click();
+});
+
+importCatalogInput?.addEventListener('change', (event) => {
+    const file = event.target.files?.[0];
+    importCatalog(file);
+    event.target.value = '';
 });
 
 productList?.addEventListener('click', (event) => {
+    const editBtn = event.target.closest('.edit-btn');
+    if (editBtn) {
+        const selectedProduct = products.find((product) => product.id === editBtn.dataset.id);
+        if (selectedProduct) {
+            setEditMode(selectedProduct);
+            showToast('Modo edicion activado.');
+        }
+        return;
+    }
+
     const removeBtn = event.target.closest('.remove-btn');
-    if (!removeBtn || !isAdminSession) {
+    if (!removeBtn) {
         return;
     }
 
@@ -361,5 +323,15 @@ productList?.addEventListener('click', (event) => {
     products = products.filter((product) => product.id !== productId);
     saveProducts();
     renderProductList();
+    if (editingProductId === productId) {
+        setEditMode(null);
+    }
+    updateLastUpdate();
     showToast('Producto eliminado.');
 });
+
+loadProducts();
+renderProductList();
+setEditMode(null);
+updateLastUpdate();
+loadVisitStats();

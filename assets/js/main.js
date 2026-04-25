@@ -1,4 +1,7 @@
 const PRODUCTS_STORAGE_KEY = 'merigon_products';
+const VISIT_COUNTER_NAMESPACE = 'merigonsweets-javiboom';
+const VISIT_COUNTER_KEY = 'store-visits';
+const VISIT_SESSION_KEY = 'merigon_visit_registered';
 
 const defaultProducts = [
     {
@@ -57,6 +60,7 @@ const categoriesList = document.querySelector('.categories');
 const searchInput = document.getElementById('searchInput');
 const sortSelect = document.getElementById('sortSelect');
 const toastRoot = document.getElementById('toastRoot');
+const visitCount = document.getElementById('visitCount');
 
 const modal = document.getElementById('contactModal');
 const contactBtn = document.getElementById('contactBtn');
@@ -95,6 +99,65 @@ function showToast(message, type = 'success') {
     window.setTimeout(() => {
         toast.remove();
     }, 2600);
+}
+
+async function getVisitCount() {
+    const endpoint = `https://api.countapi.xyz/get/${VISIT_COUNTER_NAMESPACE}/${VISIT_COUNTER_KEY}`;
+
+    try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        if (typeof data.value === 'number') {
+            return data.value;
+        }
+    } catch (error) {
+        // Silenciar: hay fallback visual.
+    }
+
+    return null;
+}
+
+async function registerVisit() {
+    if (sessionStorage.getItem(VISIT_SESSION_KEY) === 'true') {
+        return getVisitCount();
+    }
+
+    const endpoint = `https://api.countapi.xyz/hit/${VISIT_COUNTER_NAMESPACE}/${VISIT_COUNTER_KEY}`;
+
+    try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        if (typeof data.value === 'number') {
+            sessionStorage.setItem(VISIT_SESSION_KEY, 'true');
+            return data.value;
+        }
+    } catch (error) {
+        // Silenciar: hay fallback visual.
+    }
+
+    return null;
+}
+
+async function renderVisitCount() {
+    if (!visitCount) {
+        return;
+    }
+
+    visitCount.textContent = 'Visitas totales: cargando...';
+    const value = await registerVisit();
+
+    if (typeof value === 'number') {
+        visitCount.textContent = `Visitas totales: ${value.toLocaleString('es-ES')}`;
+        return;
+    }
+
+    const fallbackValue = await getVisitCount();
+    if (typeof fallbackValue === 'number') {
+        visitCount.textContent = `Visitas totales: ${fallbackValue.toLocaleString('es-ES')}`;
+        return;
+    }
+
+    visitCount.textContent = 'Visitas totales: no disponible';
 }
 
 function saveProducts() {
@@ -225,6 +288,7 @@ function hideModal() {
 loadProducts();
 renderProducts();
 renderCategories();
+renderVisitCount();
 
 contactBtn?.addEventListener('click', openModal);
 closeModal?.addEventListener('click', hideModal);
@@ -271,4 +335,12 @@ contactForm?.addEventListener('submit', function(e) {
 
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal?.classList.contains('open')) hideModal();
+});
+
+window.addEventListener('storage', (event) => {
+    if (event.key === PRODUCTS_STORAGE_KEY) {
+        loadProducts();
+        renderCategories();
+        renderProducts();
+    }
 });

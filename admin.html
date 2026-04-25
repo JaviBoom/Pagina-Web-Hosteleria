@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MerigonSweets - Administracion</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/admin.css">
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
     <div class="admin-page">
@@ -15,33 +16,52 @@
             <a class="back-link" href="index.html">Volver a la tienda</a>
         </header>
 
-        <section id="loginSection" class="admin-box" aria-labelledby="login-title">
-            <h2 id="login-title">Iniciar sesion</h2>
-            <p class="hint">Accede con Google. Solo el correo autorizado puede entrar al modo desarrollador.</p>
-            <div id="googleSignInButton"></div>
-            <p id="loginWarning" class="hint warning" hidden></p>
-        </section>
-
-        <section id="adminPanel" class="admin-box" aria-labelledby="manage-title" hidden>
+        <section class="admin-box" aria-labelledby="overview-title">
             <div class="panel-head">
                 <div>
-                    <h2 id="manage-title">Gestion de productos</h2>
-                    <p id="sessionBadge" class="session-badge"></p>
+                    <h2 id="overview-title">Control de la tienda</h2>
+                    <p class="session-badge">Gestion total del catalogo y monitorizacion de visitas</p>
                 </div>
                 <div class="panel-meta">
                     <span id="productCounter" class="counter-pill">0 productos</span>
                 </div>
-                <button id="logoutBtn" type="button" class="btn secondary">Cerrar sesion</button>
             </div>
 
-            <div id="developerTools" class="developer-tools" hidden>
-                <p class="hint">Modo desarrollador activo para: <strong id="developerEmail"></strong></p>
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <h3>Visitas totales</h3>
+                    <p id="totalVisits" class="stat-value">--</p>
+                    <p class="hint">Conteo global sincronizado para la tienda.</p>
+                </article>
+                <article class="stat-card">
+                    <h3>Ultima actualizacion</h3>
+                    <p id="lastUpdate" class="stat-value">--</p>
+                    <p class="hint">Se actualiza al recargar y tras guardar cambios.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="adminPanel" class="admin-box" aria-labelledby="manage-title">
+            <div class="panel-head">
+                <div>
+                    <h2 id="manage-title">Gestion de productos</h2>
+                    <p class="session-badge">Añade, edita, elimina, exporta e importa tu catalogo.</p>
+                </div>
+                <div class="panel-meta">
+                    <button id="exportCatalogBtn" type="button" class="btn secondary">Exportar JSON</button>
+                    <button id="importCatalogBtn" type="button" class="btn secondary">Importar JSON</button>
+                    <input id="importCatalogInput" type="file" accept="application/json" hidden>
+                </div>
+            </div>
+
+            <div class="developer-tools">
+                <p class="hint">Herramientas rapidas de mantenimiento del catalogo.</p>
                 <button id="resetCatalogBtn" type="button" class="btn secondary">Restablecer catalogo por defecto</button>
             </div>
 
             <div class="panel-grid">
                 <form id="productForm" class="admin-form">
-                    <h3>Anadir producto</h3>
+                    <h3 id="formTitle">Anadir producto</h3>
                     <label>
                         Nombre
                         <input id="productName" class="input" type="text" required>
@@ -62,11 +82,14 @@
                         Imagen (ruta o URL)
                         <input id="productImage" class="input" type="text" required placeholder="Ej: assets/img/tarrina-pistacho.jpg">
                     </label>
-                    <button type="submit" class="btn">Guardar producto</button>
+                    <div class="form-actions">
+                        <button id="saveProductBtn" type="submit" class="btn">Guardar producto</button>
+                        <button id="cancelEditBtn" type="button" class="btn secondary" hidden>Cancelar edicion</button>
+                    </div>
                 </form>
 
                 <div class="list-block">
-                    <h3>Quitar producto</h3>
+                    <h3>Listado de productos</h3>
                     <ul id="productList" class="product-list" aria-live="polite"></ul>
                 </div>
             </div>
