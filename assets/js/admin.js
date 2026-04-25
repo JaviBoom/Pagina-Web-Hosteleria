@@ -22,7 +22,7 @@ const defaultProducts = [
         name: 'Tarrina de Chocolate',
         desc: 'Chocolate belga y crema fresca',
         price: 'EUR 3.50 / unidad',
-        image: 'assets/img/logo.jpg',
+        image: 'https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=1200',
         category: 'Tarrinas'
     },
     {
@@ -30,7 +30,7 @@ const defaultProducts = [
         name: 'Tarrina de Vainilla',
         desc: 'Vainilla natural y crumble',
         price: 'EUR 3.20 / unidad',
-        image: 'assets/img/logo.jpg',
+        image: 'https://images.pexels.com/photos/806363/pexels-photo-806363.jpeg?auto=compress&cs=tinysrgb&w=1200',
         category: 'Tarrinas'
     },
     {
@@ -38,7 +38,7 @@ const defaultProducts = [
         name: 'Tarrina de Fresa',
         desc: 'Compota de fresa casera',
         price: 'EUR 3.80 / unidad',
-        image: 'assets/img/logo.jpg',
+        image: 'https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=1200',
         category: 'Tarrinas'
     },
     {
@@ -46,7 +46,7 @@ const defaultProducts = [
         name: 'Tarta de Chocolate',
         desc: 'Ideal para celebraciones',
         price: 'Desde EUR 22.00',
-        image: 'assets/img/logo.jpg',
+        image: 'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1200',
         category: 'Tartas'
     },
     {
@@ -54,7 +54,7 @@ const defaultProducts = [
         name: 'Tarta de Vainilla',
         desc: 'Sabor clasico con crema',
         price: 'Desde EUR 20.00',
-        image: 'assets/img/logo.jpg',
+        image: 'https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=1200',
         category: 'Tartas'
     },
     {
@@ -62,7 +62,7 @@ const defaultProducts = [
         name: 'Tarta de Fresa',
         desc: 'Fresas frescas y crema ligera',
         price: 'Desde EUR 24.00',
-        image: 'assets/img/logo.jpg',
+        image: 'https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1200',
         category: 'Tartas'
     }
 ];

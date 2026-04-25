@@ -9,48 +9,54 @@ const defaultProducts = [
         name: 'Tarrina de Chocolate',
         desc: 'Chocolate belga y crema fresca',
         price: '€3.50 / unidad',
-        image: 'assets/img/logo.jpg',
-        category: 'Tarrinas'
+        image: 'https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        category: 'Tarrinas',
+        tags: ['Top ventas', 'Intenso']
     },
     {
         id: crypto.randomUUID(),
         name: 'Tarrina de Vainilla',
         desc: 'Vainilla natural y crumble',
         price: '€3.20 / unidad',
-        image: 'assets/img/logo.jpg',
-        category: 'Tarrinas'
+        image: 'https://images.pexels.com/photos/806363/pexels-photo-806363.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        category: 'Tarrinas',
+        tags: ['Suave', 'Clasica']
     },
     {
         id: crypto.randomUUID(),
         name: 'Tarrina de Fresa',
         desc: 'Compota de fresa casera',
         price: '€3.80 / unidad',
-        image: 'assets/img/logo.jpg',
-        category: 'Tarrinas'
+        image: 'https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        category: 'Tarrinas',
+        tags: ['Frutal', 'Fresca']
     },
     {
         id: crypto.randomUUID(),
         name: 'Tarta de Chocolate',
         desc: 'Ideal para celebraciones',
         price: 'Desde €22.00',
-        image: 'assets/img/logo.jpg',
-        category: 'Tartas'
+        image: 'https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        category: 'Tartas',
+        tags: ['Celebracion', 'Premium']
     },
     {
         id: crypto.randomUUID(),
         name: 'Tarta de Vainilla',
         desc: 'Sabor clásico con crema',
         price: 'Desde €20.00',
-        image: 'assets/img/logo.jpg',
-        category: 'Tartas'
+        image: 'https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        category: 'Tartas',
+        tags: ['Delicada', 'Artesanal']
     },
     {
         id: crypto.randomUUID(),
         name: 'Tarta de Fresa',
         desc: 'Fresas frescas y crema ligera',
         price: 'Desde €24.00',
-        image: 'assets/img/logo.jpg',
-        category: 'Tartas'
+        image: 'https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        category: 'Tartas',
+        tags: ['Fruta natural', 'Temporada']
     }
 ];
 
