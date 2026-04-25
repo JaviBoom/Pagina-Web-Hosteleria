@@ -71,7 +71,6 @@ const cartList = document.getElementById('cartList');
 const cartTotal = document.getElementById('cartTotal');
 const clearCartBtn = document.getElementById('clearCartBtn');
 const sendOrderBtn = document.getElementById('sendOrderBtn');
-const galleryGrid = document.getElementById('galleryGrid');
 const copyShareBtn = document.getElementById('copyShareBtn');
 const shareMessage = document.getElementById('shareMessage');
 const heroSlides = Array.from(document.querySelectorAll('[data-slide]'));
@@ -303,20 +302,6 @@ function renderCategories() {
     `).join('');
 }
 
-function renderGallery() {
-    if (!galleryGrid) {
-        return;
-    }
-
-    const galleryProducts = products.slice(0, 6);
-    galleryGrid.innerHTML = galleryProducts.map((product) => `
-        <article class="gallery-item">
-            <img src="${getSafeImageSrc(product.image)}" alt="${product.name}">
-            <p><strong>${product.name}</strong></p>
-        </article>
-    `).join('');
-}
-
 function renderCart() {
     if (!cartList || !cartTotal) {
         return;
@@ -440,7 +425,6 @@ function hideModal() {
 loadProducts();
 renderProducts();
 renderCategories();
-renderGallery();
 renderCart();
 renderVisitCount();
 initHeroSlider();
@@ -525,6 +509,5 @@ window.addEventListener('storage', (event) => {
         loadProducts();
         renderCategories();
         renderProducts();
-        renderGallery();
     }
 });
