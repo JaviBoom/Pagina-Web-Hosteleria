@@ -125,7 +125,6 @@ header {
 
 .hero,
 .about,
-.testimonials,
 .share-pack,
 .trust-strip article,
 footer {
@@ -195,14 +194,12 @@ footer {
 }
 
 .about,
-.testimonials,
 .share-pack {
     margin-top: 16px;
     padding: 16px;
 }
 
 .about h3,
-.testimonials h3,
 .share-pack h3 {
     margin-top: 0;
 }
@@ -211,26 +208,18 @@ footer {
     margin: 10px 0 14px;
 }
 
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.testimonials-grid article {
-    border: 1px solid var(--border-soft);
+.social-proof {
+    margin-top: 14px;
+    padding: 10px 14px;
     border-radius: 12px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.75);
-    transform: rotate(-0.4deg);
+    border: 1px dashed var(--border-soft);
+    background: rgba(255, 255, 255, 0.72);
 }
 
-.testimonials-grid article:nth-child(2) {
-    transform: rotate(0.6deg);
-}
-
-.testimonials-grid article:nth-child(3) {
-    transform: rotate(-0.2deg);
+.social-proof p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
 }
 
 footer {
@@ -290,8 +279,7 @@ footer a {
         max-width: 240px;
     }
 
-    .trust-strip,
-    .testimonials-grid {
+    .trust-strip {
         grid-template-columns: 1fr;
     }
 
