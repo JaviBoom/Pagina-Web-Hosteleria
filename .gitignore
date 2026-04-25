@@ -1,0 +1,7 @@
+# OS files
+Desktop.ini
+Thumbs.db
+.DS_Store
+
+# VS Code local settings (optional)
+.vscode/
