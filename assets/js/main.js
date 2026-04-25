@@ -61,6 +61,15 @@ const searchInput = document.getElementById('searchInput');
 const sortSelect = document.getElementById('sortSelect');
 const toastRoot = document.getElementById('toastRoot');
 const visitCount = document.getElementById('visitCount');
+const cartList = document.getElementById('cartList');
+const cartTotal = document.getElementById('cartTotal');
+const clearCartBtn = document.getElementById('clearCartBtn');
+const sendOrderBtn = document.getElementById('sendOrderBtn');
+const galleryGrid = document.getElementById('galleryGrid');
+const copyShareBtn = document.getElementById('copyShareBtn');
+const shareMessage = document.getElementById('shareMessage');
+const heroSlides = Array.from(document.querySelectorAll('[data-slide]'));
+const heroDots = Array.from(document.querySelectorAll('[data-slide-dot]'));
 
 const modal = document.getElementById('contactModal');
 const contactBtn = document.getElementById('contactBtn');
@@ -70,6 +79,8 @@ const contactForm = document.getElementById('contactForm');
 
 let products = [];
 let activeCategory = 'Todas';
+let heroIndex = 0;
+let cart = [];
 
 if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
@@ -99,6 +110,21 @@ function showToast(message, type = 'success') {
     window.setTimeout(() => {
         toast.remove();
     }, 2600);
+}
+
+function parsePriceValue(priceText) {
+    const match = (priceText || '').replace(',', '.').match(/\d+(\.\d+)?/);
+    if (!match) {
+        return 0;
+    }
+    return Number.parseFloat(match[0]);
+}
+
+function toCurrency(value) {
+    return new Intl.NumberFormat('es-ES', {
+        style: 'currency',
+        currency: 'EUR'
+    }).format(value);
 }
 
 async function getVisitCount() {
@@ -244,10 +270,11 @@ function renderProducts() {
             <div class="card-info">
                 <h4>${product.name}</h4>
                 <div class="small muted">${product.desc}</div>
+                <div class="small muted">${(product.tags || []).join(' • ')}</div>
                 <div class="price price-margin">${product.price}</div>
             </div>
             <div class="card-actions">
-                <button class="btn add-btn" type="button" data-name="${product.name}">Añadir</button>
+                <button class="btn add-btn" type="button" data-id="${product.id}" data-name="${product.name}">Añadir</button>
                 <a class="small muted" href="#">Detalles</a>
             </div>
         </li>
@@ -270,6 +297,125 @@ function renderCategories() {
     `).join('');
 }
 
+function renderGallery() {
+    if (!galleryGrid) {
+        return;
+    }
+
+    const galleryProducts = products.slice(0, 6);
+    galleryGrid.innerHTML = galleryProducts.map((product) => `
+        <article class="gallery-item">
+            <img src="${getSafeImageSrc(product.image)}" alt="${product.name}">
+            <p><strong>${product.name}</strong></p>
+        </article>
+    `).join('');
+}
+
+function renderCart() {
+    if (!cartList || !cartTotal) {
+        return;
+    }
+
+    if (!cart.length) {
+        cartList.innerHTML = '<li class="muted">Aun no has añadido productos.</li>';
+        cartTotal.textContent = toCurrency(0);
+        return;
+    }
+
+    const grouped = cart.reduce((acc, item) => {
+        if (!acc[item.id]) {
+            acc[item.id] = { ...item, qty: 0 };
+        }
+        acc[item.id].qty += 1;
+        return acc;
+    }, {});
+
+    const rows = Object.values(grouped);
+    cartList.innerHTML = rows.map((item) => `
+        <li class="cart-row">
+            <span>${item.qty}x ${item.name}</span>
+            <strong>${toCurrency(item.priceValue * item.qty)}</strong>
+        </li>
+    `).join('');
+
+    const total = rows.reduce((sum, item) => sum + (item.priceValue * item.qty), 0);
+    cartTotal.textContent = toCurrency(total);
+}
+
+function addToCart(product) {
+    cart.push({
+        id: product.id,
+        name: product.name,
+        priceValue: parsePriceValue(product.price)
+    });
+    renderCart();
+}
+
+function clearCart() {
+    cart = [];
+    renderCart();
+}
+
+function buildWhatsappOrderUrl() {
+    if (!cart.length) {
+        return null;
+    }
+
+    const grouped = cart.reduce((acc, item) => {
+        if (!acc[item.id]) {
+            acc[item.id] = { ...item, qty: 0 };
+        }
+        acc[item.id].qty += 1;
+        return acc;
+    }, {});
+
+    const rows = Object.values(grouped);
+    const total = rows.reduce((sum, item) => sum + (item.priceValue * item.qty), 0);
+
+    const lines = rows.map((item) => `- ${item.qty}x ${item.name} (${toCurrency(item.priceValue * item.qty)})`);
+    const message = [
+        'Hola MerigonSweets, quiero hacer este pedido:',
+        ...lines,
+        `Total estimado: ${toCurrency(total)}`,
+        '',
+        'Nombre:',
+        'Direccion/Zona de entrega:'
+    ].join('\n');
+
+    return `https://wa.me/34655247973?text=${encodeURIComponent(message)}`;
+}
+
+function setHeroSlide(nextIndex) {
+    if (!heroSlides.length) {
+        return;
+    }
+
+    heroIndex = (nextIndex + heroSlides.length) % heroSlides.length;
+    heroSlides.forEach((slide, index) => {
+        slide.classList.toggle('is-active', index === heroIndex);
+    });
+    heroDots.forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === heroIndex);
+    });
+}
+
+function initHeroSlider() {
+    if (!heroSlides.length) {
+        return;
+    }
+
+    heroDots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            const index = Number.parseInt(dot.dataset.slideDot, 10);
+            setHeroSlide(index);
+        });
+    });
+
+    window.setInterval(() => {
+        setHeroSlide(heroIndex + 1);
+    }, 3800);
+}
+
 function openModal() {
     if (!modal) return;
     modal.classList.add('open');
@@ -288,7 +434,10 @@ function hideModal() {
 loadProducts();
 renderProducts();
 renderCategories();
+renderGallery();
+renderCart();
 renderVisitCount();
+initHeroSlider();
 
 contactBtn?.addEventListener('click', openModal);
 closeModal?.addEventListener('click', hideModal);
@@ -323,7 +472,26 @@ productsList?.addEventListener('click', (event) => {
         return;
     }
 
+    const selectedProduct = products.find((product) => product.id === addBtn.dataset.id);
+    if (selectedProduct) {
+        addToCart(selectedProduct);
+    }
     showToast(`${addBtn.dataset.name} añadido al pedido`);
+});
+
+clearCartBtn?.addEventListener('click', () => {
+    clearCart();
+    showToast('Pedido vaciado.');
+});
+
+sendOrderBtn?.addEventListener('click', () => {
+    const whatsappUrl = buildWhatsappOrderUrl();
+    if (!whatsappUrl) {
+        showToast('Añade al menos un producto al pedido.', 'error');
+        return;
+    }
+
+    window.open(whatsappUrl, '_blank', 'noopener');
 });
 
 contactForm?.addEventListener('submit', function(e) {
@@ -337,10 +505,20 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal?.classList.contains('open')) hideModal();
 });
 
+copyShareBtn?.addEventListener('click', async () => {
+    try {
+        await navigator.clipboard.writeText(shareMessage?.value || '');
+        showToast('Texto copiado para compartir.');
+    } catch (error) {
+        showToast('No se pudo copiar automaticamente.', 'error');
+    }
+});
+
 window.addEventListener('storage', (event) => {
     if (event.key === PRODUCTS_STORAGE_KEY) {
         loadProducts();
         renderCategories();
         renderProducts();
+        renderGallery();
     }
 });
