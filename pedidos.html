@@ -6,18 +6,23 @@
     <title>MerigonSweets | Pedidos</title>
     <link rel="canonical" href="https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html">
     <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/principal.css">
-    <meta name="description" content="Pagina de pedidos de MerigonSweets: elige tus postres, prepara tu carrito y envia el pedido por WhatsApp.">
+    <meta name="description" content="MerigonSweets: una pagina de pedidos moderna con catalogo, carrito, WhatsApp y un diseño visual inspirado en las mejores pastelerias artesanales.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MerigonSweets | Pedidos">
+    <meta property="og:description" content="Haz tu pedido de postres artesanales, tartas y tarrinas de forma rapida y visual.">
+    <meta property="og:url" content="https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html">
+    <meta property="og:image" content="https://javiboom.github.io/Pagina-Web-Hosteleria/assets/img/logo.jpg">
 </head>
 <body>
-    <div class="site" role="document">
-        <header>
+    <div class="site">
+        <header class="topbar">
             <a class="brand" href="index.html">
                 <img class="logo" src="assets/img/logo.jpg" alt="Logo MerigonSweets">
                 <div>
                     <h1>MerigonSweets</h1>
-                    <p>Area de pedidos</p>
+                    <p>Encargos dulces y artesanales</p>
                 </div>
             </a>
 
@@ -25,6 +30,7 @@
                 <ul class="nav-links">
                     <li><a href="index.html#inicio">Inicio</a></li>
                     <li><a class="active" href="#productos">Pedidos</a></li>
+                    <li><a href="#como-pedir">Cómo pedir</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
@@ -36,105 +42,232 @@
             </div>
         </header>
 
-        <section class="hero" id="inicio" aria-labelledby="hero-title">
-            <div class="left">
-                <h2 id="hero-title">Haz tu pedido en 1 minuto</h2>
-                <p>Explora el catalogo, añade al carrito y envia tu pedido por WhatsApp con el resumen listo.</p>
-                <div class="cta">
-                    <a class="btn" href="#productos">Ver catalogo</a>
-                    <a class="btn secondary" href="index.html">Conocer la marca</a>
-                </div>
-            </div>
-            <div class="right">
-                <div class="hero-slider" aria-label="Galeria destacada">
-                    <div class="hero-slide is-active" data-slide>
-                        <img class="hero-image" src="assets/img/logo.jpg" alt="Postres artesanales MerigonSweets">
-                        <p class="slide-caption">Top ventas de la semana</p>
-                    </div>
-                    <div class="hero-slide" data-slide>
-                        <img class="hero-image" src="assets/img/logo.jpg" alt="Tartas personalizadas">
-                        <p class="slide-caption">Tartas personalizadas por encargo</p>
-                    </div>
-                    <div class="hero-slide" data-slide>
-                        <img class="hero-image" src="assets/img/logo.jpg" alt="Tarrinas frescas">
-                        <p class="slide-caption">Entrega rapida en 24/48h</p>
-                    </div>
-                    <div class="hero-dots" aria-hidden="true">
-                        <button class="hero-dot is-active" data-slide-dot="0" type="button"></button>
-                        <button class="hero-dot" data-slide-dot="1" type="button"></button>
-                        <button class="hero-dot" data-slide-dot="2" type="button"></button>
-                    </div>
-                </div>
+        <section class="marquee" aria-label="Mensajes destacados">
+            <div class="marquee-track">
+                <span>Pedido por WhatsApp</span>
+                <span>Ingredientes frescos</span>
+                <span>Tartas personalizadas</span>
+                <span>Tarrinas artesanales</span>
+                <span>Entrega en 24/48h</span>
+                <span>Sevilla y alrededores</span>
+                <span>Pedido por WhatsApp</span>
+                <span>Ingredientes frescos</span>
+                <span>Tartas personalizadas</span>
+                <span>Tarrinas artesanales</span>
+                <span>Entrega en 24/48h</span>
+                <span>Sevilla y alrededores</span>
             </div>
         </section>
 
-        <section class="trust-strip" aria-label="Razones para elegirnos">
-            <article>
-                <strong>Ingredientes naturales</strong>
-                <p class="muted">Recetas artesanales y materia prima de calidad.</p>
-            </article>
-            <article>
-                <strong>Entrega 24/48h</strong>
-                <p class="muted">Reparto rapido en tu zona y recogida en tienda.</p>
-            </article>
-            <article>
-                <strong>Pago seguro</strong>
-                <p class="muted">Gestion de pedidos por WhatsApp con confirmacion.</p>
-            </article>
-        </section>
-
-        <div class="grid">
-            <aside class="sidebar" aria-labelledby="categorias-title">
-                <h3 id="categorias-title">Categorías</h3>
-                <ul class="categories" role="list"></ul>
-
-                <div class="sidebar-info">
-                    <strong>Horario:</strong>
-                    <p class="muted sidebar-hours">Lun-Sáb 09:00 - 19:00</p>
-                    <p class="sidebar-phone"><strong>Tel:</strong> <a class="muted" href="tel:+34123456789">+34 123 456 789</a></p>
-                    <p class="muted">Zona reparto: Sevilla y alrededores</p>
-                </div>
-
-                <div class="mini-cart" aria-labelledby="cart-title">
-                    <h4 id="cart-title">Tu pedido</h4>
-                    <ul id="cartList" class="cart-list" role="list"></ul>
-                    <p class="cart-total">Total estimado: <strong id="cartTotal">€0.00</strong></p>
-                    <div class="cart-actions">
-                        <button id="clearCartBtn" type="button" class="btn secondary">Vaciar</button>
-                        <button id="sendOrderBtn" type="button" class="btn">Pedir por WhatsApp</button>
+        <main>
+            <section class="hero hero-pedidos" id="inicio" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <div class="hero-kicker">El pedido más fácil que vas a hacer hoy</div>
+                    <h2 id="hero-title">Postres que entran por la vista y se piden en un minuto</h2>
+                    <p>Hemos diseñado esta página para que parezca una marca viva: más imagen, más aire, más ritmo y el catálogo justo donde toca.</p>
+                    <div class="cta">
+                        <a class="btn" href="#productos">Ver catálogo</a>
+                        <a class="btn secondary" href="#como-pedir">Cómo funciona</a>
+                    </div>
+                    <div class="hero-pills" aria-label="Ventajas principales">
+                        <span>Hecho a mano</span>
+                        <span>WhatsApp directo</span>
+                        <span>Entrega rápida</span>
                     </div>
                 </div>
-            </aside>
 
-            <main class="content" id="productos" aria-labelledby="productos-title">
-                <div class="section-title">
+                <div class="hero-visual">
+                    <div class="hero-slider" aria-label="Galería destacada">
+                        <div class="hero-slide is-active" data-slide>
+                            <img class="hero-image" src="assets/img/logo.jpg" alt="MerigonSweets">
+                            <p class="slide-caption">Tartas y tarrinas con presencia</p>
+                        </div>
+                        <div class="hero-slide" data-slide>
+                            <img class="hero-image" src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarta artesanal">
+                            <p class="slide-caption">Encargos para celebraciones</p>
+                        </div>
+                        <div class="hero-slide" data-slide>
+                            <img class="hero-image" src="https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarrina artesanal">
+                            <p class="slide-caption">Detalles para regalar</p>
+                        </div>
+                        <div class="hero-dots" aria-hidden="true">
+                            <button class="hero-dot is-active" data-slide-dot="0" type="button"></button>
+                            <button class="hero-dot" data-slide-dot="1" type="button"></button>
+                            <button class="hero-dot" data-slide-dot="2" type="button"></button>
+                        </div>
+                    </div>
+
+                    <div class="hero-note">
+                        <strong>Encargo express</strong>
+                        <p>Escribe, elige tu pedido y te ayudamos a cerrarlo por WhatsApp.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="promise-grid" aria-label="Promesas de la marca">
+                <article>
+                    <strong>Calidad real</strong>
+                    <p>Ingredientes frescos, recetas cuidadas y un acabado que se nota.</p>
+                </article>
+                <article>
+                    <strong>Más bonito</strong>
+                    <p>Una presentación pensada para regalar y para subir de nivel el pedido.</p>
+                </article>
+                <article>
+                    <strong>Más simple</strong>
+                    <p>Sin procesos raros: catálogo, carrito y pedido por WhatsApp.</p>
+                </article>
+            </section>
+
+            <section class="signature" aria-labelledby="signature-title">
+                <div class="section-head">
                     <div>
-                        <h3 id="productos-title">Catalogo de postres</h3>
-                        <div class="small muted">Entrega en 24-48h • Pago seguro</div>
-                    </div>
-                    <div class="catalog-controls" role="group" aria-label="Controles de catalogo">
-                        <input id="searchInput" class="catalog-input" type="search" placeholder="Buscar por nombre o descripcion" aria-label="Buscar productos">
-                        <select id="sortSelect" class="catalog-select" aria-label="Ordenar productos">
-                            <option value="featured">Destacados</option>
-                            <option value="name-asc">Nombre A-Z</option>
-                            <option value="name-desc">Nombre Z-A</option>
-                        </select>
+                        <div class="section-kicker">Nuestra esencia</div>
+                        <h3 id="signature-title">Lo que hace que MerigonSweets se vea diferente</h3>
                     </div>
                 </div>
+                <div class="signature-grid">
+                    <article class="signature-card signature-card-wide">
+                        <img src="https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Postre artesanal">
+                        <div>
+                            <span>El detalle que convence</span>
+                            <strong>Packs para regalar</strong>
+                            <p>Un bloque visual fuerte, pensado para que el usuario entienda rápido que está ante algo cuidado y apetecible.</p>
+                        </div>
+                    </article>
+                    <article class="signature-card">
+                        <img src="https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarta suave">
+                        <div>
+                            <span>Celebraciones</span>
+                            <strong>Tartas</strong>
+                            <p>Encargos más grandes para cumpleaños, reuniones y fechas especiales.</p>
+                        </div>
+                    </article>
+                    <article class="signature-card">
+                        <img src="https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarrina fresca">
+                        <div>
+                            <span>Salida rápida</span>
+                            <strong>Tarrinas</strong>
+                            <p>Perfectas para un capricho, una merienda o un pedido pequeño.</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-                <ul class="products" id="productsList" role="list"></ul>
-
-                <section class="share-pack compact-share" aria-labelledby="share-title">
-                    <h3 id="share-title">Compartir</h3>
-                    <p class="muted">Enlace rapido para reenviar la pagina.</p>
-                    <textarea id="shareMessage" class="share-text share-text-compact" rows="2" readonly>Te comparto MerigonSweets. Postres artesanales brutales. Mira el catalogo y pide por WhatsApp: https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html</textarea>
-                    <div class="share-actions compact-actions">
-                        <button id="copyShareBtn" type="button" class="btn secondary">Copiar</button>
-                        <a id="shareWhatsappBtn" class="mini-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=Te%20comparto%20MerigonSweets.%20Postres%20artesanales%20brutales.%20Mira%20el%20catalogo%20y%20pide%20por%20WhatsApp%3A%20https%3A%2F%2Fjaviboom.github.io%2FPagina-Web-Hosteleria%2Fpedidos.html">WhatsApp</a>
+            <section class="process-band" id="como-pedir" aria-labelledby="process-title">
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">Cómo pedir</div>
+                        <h3 id="process-title">Rápido, claro y sin perder tiempo</h3>
                     </div>
-                </section>
-            </main>
-        </div>
+                </div>
+                <div class="process-grid">
+                    <article>
+                        <span>01</span>
+                        <strong>Explora</strong>
+                        <p>Usa el filtro por categorías para ver exactamente lo que te interesa.</p>
+                    </article>
+                    <article>
+                        <span>02</span>
+                        <strong>Añade</strong>
+                        <p>Ve sumando productos al carrito hasta tener tu encargo listo.</p>
+                    </article>
+                    <article>
+                        <span>03</span>
+                        <strong>Envía</strong>
+                        <p>Haz clic en WhatsApp y recibe ayuda para cerrarlo en minutos.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="grid" aria-label="Catálogo y carrito">
+                <aside class="sidebar" aria-labelledby="categorias-title">
+                    <h3 id="categorias-title">Categorías</h3>
+                    <ul class="categories" role="list"></ul>
+
+                    <div class="sidebar-info">
+                        <strong>Horario</strong>
+                        <p class="muted sidebar-hours">Lun-Sáb 09:00 - 19:00</p>
+                        <p class="sidebar-phone"><strong>Tel:</strong> <a class="muted" href="tel:+34123456789">+34 123 456 789</a></p>
+                        <p class="muted">Zona reparto: Sevilla y alrededores</p>
+                    </div>
+
+                    <div class="mini-cart" aria-labelledby="cart-title">
+                        <h4 id="cart-title">Tu pedido</h4>
+                        <ul id="cartList" class="cart-list" role="list"></ul>
+                        <p class="cart-total">Total estimado: <strong id="cartTotal">€0.00</strong></p>
+                        <div class="cart-actions">
+                            <button id="clearCartBtn" type="button" class="btn secondary">Vaciar</button>
+                            <button id="sendOrderBtn" type="button" class="btn">Pedir por WhatsApp</button>
+                        </div>
+                    </div>
+                </aside>
+
+                <main class="content" id="productos" aria-labelledby="productos-title">
+                    <div class="section-title">
+                        <div>
+                            <div class="section-kicker">Catálogo</div>
+                            <h3 id="productos-title">Postres artesanales listos para pedir</h3>
+                            <div class="small muted">Entrega en 24-48h · Pago seguro · Atención directa</div>
+                        </div>
+                        <div class="catalog-controls" role="group" aria-label="Controles de catálogo">
+                            <input id="searchInput" class="catalog-input" type="search" placeholder="Buscar por nombre o descripción" aria-label="Buscar productos">
+                            <select id="sortSelect" class="catalog-select" aria-label="Ordenar productos">
+                                <option value="featured">Destacados</option>
+                                <option value="name-asc">Nombre A-Z</option>
+                                <option value="name-desc">Nombre Z-A</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <ul class="products" id="productsList" role="list"></ul>
+
+                    <section class="showcase" aria-labelledby="showcase-title">
+                        <div class="section-head">
+                            <div>
+                                <div class="section-kicker">Para mirar, compartir y pedir</div>
+                                <h3 id="showcase-title">Un bloque visual más cercano al estilo de una marca real</h3>
+                            </div>
+                        </div>
+                        <div class="showcase-grid">
+                            <article>
+                                <strong>Pedido para regalar</strong>
+                                <p>Si buscas un detalle dulce, estos packs están pensados para quedar bien sin complicarte.</p>
+                            </article>
+                            <article>
+                                <strong>Evento especial</strong>
+                                <p>Tartas y encargos más grandes para celebraciones con una presentación más premium.</p>
+                            </article>
+                            <article>
+                                <strong>Capricho rápido</strong>
+                                <p>Tarrinas y piezas sueltas para cuando solo quieres algo dulce y directo.</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <section class="share-pack compact-share" aria-labelledby="share-title">
+                        <h3 id="share-title">Compartir</h3>
+                        <p class="muted">Enlace rápido para reenviar la página.</p>
+                        <textarea id="shareMessage" class="share-text share-text-compact" rows="2" readonly>Te comparto MerigonSweets. Mira el catálogo y pide por WhatsApp: https://javiboom.github.io/Pagina-Web-Hosteleria/pedidos.html</textarea>
+                        <div class="share-actions compact-actions">
+                            <button id="copyShareBtn" type="button" class="btn secondary">Copiar</button>
+                            <a id="shareWhatsappBtn" class="mini-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=Te%20comparto%20MerigonSweets.%20Mira%20el%20cat%C3%A1logo%20y%20pide%20por%20WhatsApp%3A%20https%3A%2F%2Fjaviboom.github.io%2FPagina-Web-Hosteleria%2Fpedidos.html">WhatsApp</a>
+                        </div>
+                    </section>
+                </main>
+            </section>
+
+            <section class="footer-band" aria-labelledby="footer-band-title">
+                <div>
+                    <div class="section-kicker">Último empujón</div>
+                    <h3 id="footer-band-title">Si ya lo tienes claro, te ayudamos a cerrarlo por WhatsApp</h3>
+                </div>
+                <div class="footer-band-actions">
+                    <a class="btn" href="#productos">Volver al catálogo</a>
+                    <a class="btn secondary" href="index.html">Ir a la portada</a>
+                </div>
+            </section>
+        </main>
 
         <footer class="site-footer" id="contacto" role="contentinfo">
             <div>
