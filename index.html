@@ -6,18 +6,18 @@
     <title>MerigonSweets | Inicio</title>
     <link rel="canonical" href="https://javiboom.github.io/Pagina-Web-Hosteleria/">
     <link rel="icon" type="image/jpeg" href="assets/img/logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/home.css">
-    <meta name="description" content="Conoce MerigonSweets: postres artesanales en Sevilla. Descubre nuestra historia y haz tu pedido en la pagina dedicada.">
+    <meta name="description" content="MerigonSweets: postres artesanales en Sevilla con una portada moderna, animada y pensada para descubrir el catalogo y hacer pedidos.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="MerigonSweets | Postres Artesanales en Sevilla">
-    <meta property="og:description" content="Inicio oficial de MerigonSweets. Conocenos y entra al area de pedidos.">
+    <meta property="og:description" content="Postres artesanales, tartas personalizadas y pedidos por WhatsApp.">
     <meta property="og:url" content="https://javiboom.github.io/Pagina-Web-Hosteleria/">
     <meta property="og:image" content="https://javiboom.github.io/Pagina-Web-Hosteleria/assets/img/logo.jpg">
 </head>
 <body>
     <div class="site">
-        <header>
+        <header class="topbar">
             <a class="brand" href="index.html">
                 <img class="logo" src="assets/img/logo.jpg" alt="Logo MerigonSweets">
                 <div>
@@ -28,12 +28,13 @@
             <nav aria-label="Navegacion principal">
                 <ul class="nav-links">
                     <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="pedidos.html#productos">Pedidos</a></li>
+                    <li><a href="#colecciones">Colecciones</a></li>
+                    <li><a href="#como-funciona">Como funciona</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
             <div class="actions">
-                <a class="btn" href="pedidos.html">Hacer pedido</a>
+                <a class="btn" href="pedidos.html">Ir a pedidos</a>
                 <a class="btn secondary" href="admin.html">Administrador</a>
             </div>
         </header>
@@ -55,171 +56,174 @@
             </div>
         </section>
 
-        <section class="hero" id="inicio" data-reveal>
-            <div class="hero-copy">
-                <div class="hero-kicker">Dulces artesanales en Sevilla</div>
-                <h2>Bienvenido a MerigonSweets</h2>
-                <p>Somos una pasteleria artesanal en Sevilla especializada en tarrinas y tartas para celebraciones, detalles y momentos especiales.</p>
-                <div class="cta">
-                    <a class="btn" href="pedidos.html">Ir a pedidos</a>
-                    <a class="btn secondary" href="#quienes-somos">Conocenos</a>
+        <main>
+            <section class="hero" id="inicio" data-reveal>
+                <div class="hero-copy">
+                    <div class="hero-kicker">Dulces artesanales en Sevilla</div>
+                    <h2>Una portada más potente, más clara y mucho más visual</h2>
+                    <p>MerigonSweets mezcla imagen de marca, producto real y una ruta de pedido muy sencilla para que la web no parezca una plantilla más.</p>
+                    <div class="cta">
+                        <a class="btn" href="pedidos.html">Ver pedidos</a>
+                        <a class="btn secondary" href="#colecciones">Explorar colecciones</a>
+                    </div>
+                    <div class="hero-pills" aria-label="Ventajas principales">
+                        <span>Hecho a mano</span>
+                        <span>Listo para regalar</span>
+                        <span>Pedido fácil</span>
+                    </div>
                 </div>
-                <div class="hero-pills" aria-label="Ventajas principales">
-                    <span>Hecho a mano</span>
-                    <span>Listo para regalar</span>
-                    <span>Pedido fácil</span>
+                <div class="hero-visual">
+                    <div class="visual-stack">
+                        <img class="hero-image hero-image-main" src="assets/img/logo.jpg" alt="Postres MerigonSweets">
+                        <div class="floating-card floating-card-top">
+                            <strong>Pedido express</strong>
+                            <span>Te atendemos por WhatsApp en minutos</span>
+                        </div>
+                        <div class="floating-card floating-card-bottom">
+                            <strong>Top ventas</strong>
+                            <span>Tartas y tarrinas que siempre sorprenden</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-visual">
-                <img class="hero-image" src="assets/img/logo.jpg" alt="Postres MerigonSweets">
-                <div class="floating-card">
-                    <strong>Pedido express</strong>
-                    <span>Te atendemos por WhatsApp en minutos</span>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="trust-strip" data-reveal>
-            <article>
-                <strong>Artesanal de verdad</strong>
-                <p>Recetas propias, ingredientes naturales y sabor casero.</p>
-            </article>
-            <article>
-                <strong>Entrega agil</strong>
-                <p>Pedidos listos en 24/48h en Sevilla y alrededores.</p>
-            </article>
-                        <div class="visual-stack">
-                            <img class="hero-image hero-image-main" src="assets/img/logo.jpg" alt="Postres MerigonSweets">
-                            <div class="floating-card floating-card-top">
-                                <strong>Pedido express</strong>
-                                <span>Te atendemos por WhatsApp en minutos</span>
-                            </div>
-                            <div class="floating-card floating-card-bottom">
-                                <strong>Top ventas</strong>
-                                <span>Tartas y tarrinas que siempre sorprenden</span>
-                            </div>
-                        </div>
+            <section class="metrics-strip" data-reveal>
+                <article>
+                    <strong>24/48h</strong>
+                    <p>Entregas rápidas en Sevilla y alrededores.</p>
+                </article>
+                <article>
+                    <strong>100% artesanal</strong>
+                    <p>Recetas propias, ingredientes cuidados y acabado casero.</p>
+                </article>
+                <article>
+                    <strong>WhatsApp directo</strong>
+                    <p>Sin formularios raros: escribes, eliges y listo.</p>
+                </article>
+                <article>
+                    <strong>Pedido fácil</strong>
+                    <p>Una experiencia rápida, visual y muy simple.</p>
+                </article>
+            </section>
 
-        <section class="home-gallery" id="galeria" aria-labelledby="galeria-home-title" data-reveal>
-            <div class="gallery-head">
-                <section class="metrics-strip" data-reveal>
-                    <article>
-                        <strong>24/48h</strong>
-                        <p>Entregas rapidas en Sevilla y alrededores.</p>
-                    </article>
-                    <article>
-                        <strong>100% artesanal</strong>
-                        <p>Recetas propias, ingredientes cuidados y acabado casero.</p>
-                    </article>
-                    <article>
-                        <strong>WhatsApp directo</strong>
-                        <p>Sin formularios raros: escribes, eliges y listo.</p>
-                    </article>
-                    <article>
-                        <strong>Pedido facil</strong>
-                        <p>Una experiencia rapida, visual y muy simple.</p>
-                    </article>
-                </section>
-
-                <section class="collections" id="colecciones" aria-labelledby="collections-title" data-reveal>
-                    <div class="section-head">
-                        <div>
-                            <div class="section-kicker">Lo que mas llama</div>
-                            <h3 id="collections-title">Colecciones destacadas</h3>
-                        </div>
-                        <a class="btn secondary" href="pedidos.html#productos">Ver catalogo completo</a>
-                    </div>
-                    <div class="collections-grid">
-                        <a class="collection-card collection-card-large" href="pedidos.html?category=Tarrinas#productos">
-                            <img src="https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarrina de chocolate">
-                            <div>
-                                <span>Series frescas</span>
-                                <strong>Tarrinas</strong>
-                                <p>Para regalar, merendar o montar un detalle rapido.</p>
-                            </div>
-                        </a>
-                        <a class="collection-card" href="pedidos.html?category=Tartas#productos">
-                            <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarta de chocolate">
-                            <div>
-                                <span>Celebraciones</span>
-                                <strong>Tartas</strong>
-                                <p>Diseños que suben de nivel cualquier cumpleaños o evento.</p>
-                            </div>
-                        </a>
-                        <a class="collection-card" href="pedidos.html?category=Combos#productos">
-                            <img src="https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Postre variado">
-                            <div>
-                                <span>Detalle rapido</span>
-                                <strong>Combos</strong>
-                                <p>Una opcion directa si quieres quedar bien sin pensar demasiado.</p>
-                            </div>
-                        </a>
-                    </div>
-                </section>
-
-                <section class="process" aria-labelledby="process-title" data-reveal>
-                    <div class="section-head">
-                        <div>
-                            <div class="section-kicker">Como funciona</div>
-                            <h3 id="process-title">Tres pasos y lo tienes hecho</h3>
-                        </div>
-                    </div>
-                    <div class="process-grid">
-                        <article class="process-card">
-                            <span>01</span>
-                            <strong>Explora</strong>
-                            <p>Mira la portada, entra en pedidos y elige lo que mas te apetezca.</p>
-                        </article>
-                        <article class="process-card">
-                            <span>02</span>
-                            <strong>Personaliza</strong>
-                            <p>Añade al carrito y ajusta el mensaje por WhatsApp en segundos.</p>
-                        </article>
-                        <article class="process-card">
-                            <span>03</span>
-                            <strong>Recibe</strong>
-                            <p>Nos ponemos con ello y lo preparamos para entrega o recogida.</p>
-                        </article>
-                    </div>
-                </section>
-
-                <section class="story" id="quienes-somos" aria-labelledby="story-title" data-reveal>
-                    <div class="story-copy">
-                        <div class="section-kicker">Nuestra forma de trabajar</div>
-                        <h3 id="story-title">Un sitio mas bonito, mas claro y mas memorable</h3>
-                        <p>MerigonSweets nace para llevar postres artesanales de calidad a cada casa, evento o celebracion. Cuidamos sabor, presentacion y puntualidad para que tu pedido llegue perfecto.</p>
-                        <div class="story-actions">
-                            <a class="btn" href="pedidos.html">Ver catalogo y pedir</a>
-                            <a class="btn secondary" href="#contacto">Hablar con nosotros</a>
-                        </div>
-                    </div>
-                    <div class="story-aside">
-                        <div class="quote-card">
-                            <strong>Lo que queremos transmitir</strong>
-                            <p>Una pagina que no parezca plantilla. Mas sensacion de marca, mas movimiento y mas ganas de seguir bajando.</p>
-                        </div>
-                        <ul class="story-list">
-                            <li>Especialidad en tarrinas y tartas personalizadas.</li>
-                            <li>Opciones para eventos, cumples y regalos dulces.</li>
-                            <li>Atencion directa por WhatsApp para pedidos rapidos.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="social-proof" id="confianza" aria-label="Prueba social" data-reveal>
-                    <p><strong>Clientes recurrentes cada semana</strong> · Pedidos confirmados por WhatsApp · Valoraciones positivas por sabor y puntualidad</p>
-                </section>
-
-                <section class="cta-band" data-reveal>
+            <section class="collections" id="colecciones" aria-labelledby="collections-title" data-reveal>
+                <div class="section-head">
                     <div>
-                        <div class="section-kicker">Listo para pedir</div>
-                        <h3>Si ya lo tienes claro, entra a pedidos y montamos tu encargo</h3>
-                        <p>La idea es simple: una portada mas potente para enamorar y una pagina de pedidos que convierta sin distracciones.</p>
+                        <div class="section-kicker">Lo que más llama</div>
+                        <h3 id="collections-title">Colecciones destacadas</h3>
                     </div>
-                    <div class="cta-band-actions">
-                        <a class="btn" href="pedidos.html">Abrir pagina de pedidos</a>
-                        <a class="btn secondary" href="#inicio">Volver arriba</a>
-                    </div>
-                </section>
-</html>
+                    <a class="btn secondary" href="pedidos.html#productos">Ver catálogo completo</a>
+                </div>
+                <div class="collections-grid">
+                    <a class="collection-card collection-card-large" href="pedidos.html?category=Tarrinas#productos">
+                        <img src="https://images.pexels.com/photos/3026808/pexels-photo-3026808.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarrina de chocolate">
+                        <div>
+                            <span>Series frescas</span>
+                            <strong>Tarrinas</strong>
+                            <p>Para regalar, merendar o montar un detalle rápido.</p>
+                        </div>
+                    </a>
+                    <a class="collection-card" href="pedidos.html?category=Tartas#productos">
+                        <img src="https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Tarta de chocolate">
+                        <div>
+                            <span>Celebraciones</span>
+                            <strong>Tartas</strong>
+                            <p>Diseños que suben de nivel cualquier cumpleaños o evento.</p>
+                        </div>
+                    </a>
+                    <a class="collection-card" href="pedidos.html?category=Combos#productos">
+                        <img src="https://images.pexels.com/photos/1854652/pexels-photo-1854652.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Postre variado">
+                        <div>
+                            <span>Detalle rápido</span>
+                            <strong>Combos</strong>
+                            <p>Una opción directa si quieres quedar bien sin pensar demasiado.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
 
+            <section class="process" id="como-funciona" aria-labelledby="process-title" data-reveal>
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">Cómo funciona</div>
+                        <h3 id="process-title">Tres pasos y lo tienes hecho</h3>
+                    </div>
+                </div>
+                <div class="process-grid">
+                    <article class="process-card">
+                        <span>01</span>
+                        <strong>Explora</strong>
+                        <p>Entra en pedidos y elige lo que más te apetezca.</p>
+                    </article>
+                    <article class="process-card">
+                        <span>02</span>
+                        <strong>Personaliza</strong>
+                        <p>Añade al carrito y ajusta el mensaje por WhatsApp en segundos.</p>
+                    </article>
+                    <article class="process-card">
+                        <span>03</span>
+                        <strong>Recibe</strong>
+                        <p>Nos ponemos con ello y lo preparamos para entrega o recogida.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="story" id="quienes-somos" aria-labelledby="story-title" data-reveal>
+                <div class="story-copy">
+                    <div class="section-kicker">Nuestra forma de trabajar</div>
+                    <h3 id="story-title">Una web más moderna, con más aire y más personalidad</h3>
+                    <p>MerigonSweets nace para llevar postres artesanales de calidad a cada casa, evento o celebración. Cuidamos sabor, presentación y puntualidad para que tu pedido llegue perfecto.</p>
+                    <div class="story-actions">
+                        <a class="btn" href="pedidos.html">Ver catálogo y pedir</a>
+                        <a class="btn secondary" href="#contacto">Hablar con nosotros</a>
+                    </div>
+                </div>
+                <div class="story-aside">
+                    <div class="quote-card">
+                        <strong>Lo que queremos transmitir</strong>
+                        <p>Una página que no parezca plantilla. Más sensación de marca, más movimiento y más ganas de seguir bajando.</p>
+                    </div>
+                    <ul class="story-list">
+                        <li>Especialidad en tarrinas y tartas personalizadas.</li>
+                        <li>Opciones para eventos, cumples y regalos dulces.</li>
+                        <li>Atención directa por WhatsApp para pedidos rápidos.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="social-proof" aria-label="Prueba social" data-reveal>
+                <p><strong>Clientes recurrentes cada semana</strong> · Pedidos confirmados por WhatsApp · Valoraciones positivas por sabor y puntualidad</p>
+            </section>
+
+            <section class="cta-band" data-reveal>
+                <div>
+                    <div class="section-kicker">Listo para pedir</div>
+                    <h3>Si ya lo tienes claro, entra a pedidos y montamos tu encargo</h3>
+                    <p>La idea es simple: una portada potente para enamorar y una página de pedidos que convierta sin distracciones.</p>
+                </div>
+                <div class="cta-band-actions">
+                    <a class="btn" href="pedidos.html">Abrir página de pedidos</a>
+                    <a class="btn secondary" href="#inicio">Volver arriba</a>
+                </div>
+            </section>
+        </main>
+
+        <footer id="contacto" data-reveal>
+            <div>
+                <strong>MerigonSweets</strong>
+                <p>Teléfono: <a href="tel:+34123456789">+34 123 456 789</a> · Sevilla y alrededores</p>
+                <p>Horario: Lun-Sab 09:00 - 19:00</p>
+                <p class="muted">© <span id="year"></span> MerigonSweets. Todos los derechos reservados.</p>
+            </div>
+            <div class="footer-links">
+                <a href="pedidos.html">Pedidos</a>
+                <a href="aviso-legal.html">Aviso legal</a>
+                <a href="privacidad.html">Privacidad</a>
+                <a href="cookies.html">Cookies</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/home.js" defer></script>
+</body>
+</html>
